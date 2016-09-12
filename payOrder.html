@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>订单详情</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body class="mask_layer">
+	<script type="text/javascript" src="js/header.js" ></script>
+    <!--内容区域start-->
+    <div class="bodybg">
+    	<div class="w1000 clearfix content_wrap">
+    		<div class="clearfix payOrder">
+    			<p>订单详情</p>
+                <table class="asset_wrap" border="0" cellpadding="0" cellspacing="0">
+                    <thead class="asset_wrap_tit">
+                        <tr>
+                            <td>产品名称</td>
+                            <td>产品原价（元）</td>
+                            <td>数量</td>
+                            <td>订单总额(元)</td>
+                            <td>年化率</td>
+                            <td>返租方式</td>
+                            <td>实际购入价（元）</td>
+                        </tr>
+                    </thead>
+                    <tbody class="asset_wrap_con">
+                        <tr>
+                            <td colspan="7">暂无数据</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="clearfix payOrder">
+            	<div class="payWrap">
+            		<label>支付方式</label>
+            		<em>若30分钟内没有完成支付（线下支付为48小时内），订单将自动失效</em>
+            	</div>
+            	<div class="payWrap">
+            		<div class="payWrap_radio">
+            			<input type="radio" name="payWay" value="00" tabindex="1" class="wayOne" onchange="checkBanlance(this);"/>
+            			<em>账户现金余额直接购买<i style="display: none;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;余额不足，请重新选择充值方式或去充值</i> </em>
+            		</div>
+            		<div class="payWrap_item">
+	        			<em>您目前现金账号余额为：<i>0</i>元</em>
+	        			<a href="rechange.html">立即充值></a>
+            		</div>
+            	</div>
+        		<div class="payWrap">
+        			<div class="payWrap_radio">
+	        			<input type="radio" name="payWay" value="02" class="wayOne" tabindex="2" onclick="checkBanlance(this);"/>
+	        			<em>银行卡快捷支付</em>
+        			</div>
+        			<a class="nyBack"></a>
+        		</div>
+            	<div class="fr">
+            		<p id="productTotal">商品总额：<i>0</i>元</p>
+            		<p>红包抵用：<i>0</i>元</p>
+            		<p id="payOrder">您需为订单支付：<i>0</i>元</p>
+            		<input class="s_btn" type="submit" name="payOrder" value="去支付" tabindex="3"/>
+            	</div>
+        	</div>
+        </div>
+    </div>
+    <div class="pop_up payWin none">
+		<div class="payWin_content">
+			<img src="img/close.png" onclick="close();"/>
+			<div class="payTitle">交易密码</div>
+			<div class="pay_detailTile">请输入交易密码</div>
+			<div class="pay_input"><input type="password" name="payPassw"/></div>
+			<div class="btn">提交</div>
+		</div>
+	</div>
+    <!--内容区域end-->
+   <script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/md5.js" ></script>
+<script>
+	var orderInfo = JSON.parse(localStorage.getItem("orderInfo"));
+	var token = orderInfo.token;//口令
+	var orderId = orderInfo.orderId;
+	var totalMoney,usableBalance;//总额，可用余额
+	$(function(){
+		//查询默认银行卡信息
+		Utils.ajax({
+			url:"/restful/querycard/default",
+			type:"post",
+			data:{"custId":custId},
+			success:function(data,xml){
+				if(data.meta.success){
+					if(data.data){
+						var bankType = data.data.bankType;//银行名
+						var backIcon;
+						for(var k in backJson){
+							for(var m in backJson[k]){
+								if(bankType == m){
+									bankType = backJson[k][m];
+									backIcon = backJson[k]["bankIcon"];
+								}
+							}
+						}
+						$(".nyBack").css("background-image","url("+backIcon+")")
+					}
+				}else{
+					//会话过期，返回登录页面
+					if(data.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+					alert(data.meta.message);
+				}
+			}
+		})
+		//查询订单详情
+		Utils.ajax({
+			url:"/restful/tradeorder/querydetail",
+			type:"post",
+			data:{"custId":custId,"tradeOrderId":orderId},
+			success:function(data,xml){
+				if(data.meta.success){
+					if(data.data){
+						if(data.data.to){
+							var orderData = data.data.to;
+							var telpText = '';
+                            Utils.ajax({
+								url:"/restful/product/query/prddetail",
+								type:"post",
+								data:{"productId":orderData.productId},
+								success:function(request,xml){
+									if(request.meta.success){
+										if(request.data){
+											if(request.data.prdComm){
+												request =  request.data.prdComm;
+												var repayMode;
+												switch (request.repayMode){
+													case "0":
+														repayMode = "等额本息还款";
+														break;
+													case "1":
+														repayMode = "一次还本付息";
+														break;
+													case "2":
+														repayMode = "等额本金";
+														break;
+													case "3":
+														repayMode = "每月还息到期还本";
+														break;
+												}
+												totalMoney = orderData.tradeTalAmt;
+												telpText += '<tr><td>'+orderData.productNane+'</td>'+
+										                    '<td>'+request.unitCost+'</td><td>'+orderData.purchasePortion+'</td>'+
+										                    '<td>'+totalMoney+'</td><td>'+request.expectEarnRate+'%</td>'+
+										                    '<td>'+repayMode+'</td><td>'+totalMoney+'</td></tr>';
+												$(".asset_wrap_con").html(telpText);
+												$("#productTotal i").html(totalMoney);
+												$("#payOrder i").html(totalMoney);
+											}
+										}
+									}else{
+										//会话过期，返回登录页面
+										if(request.meta.message.indexOf("请您先登录")>-1){
+											location.href = "timeOut.html";
+											return;
+										}
+										alert(request.meta.message);
+									}
+								}
+                            });
+						}
+						if(data.data.pos && data.data.pos.length>0){
+							var payData = data.data.pos;
+						}else{
+							$("#payInfo").html("<tr><td colspan='4'>暂无信息</td></tr>")
+						}
+					}
+				}else{
+					//会话过期，返回登录页面
+					if(data.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+					alert(data.meta.message);
+				}
+			}
+		});
+		//查询详情
+		Utils.ajax({
+			url:"/restful/custinfo/balance/query",
+			type:"post",
+			data:{"custId":custId},
+			success:function(data,xml){
+				if(data.meta.success){
+					if(data.data){
+						usableBalance = data.data.usableBalance;
+						$(".payWrap_item em i").html(usableBalance);
+					}else{
+						$(".payWrap_item em i").html("0");
+					}
+				}else{
+					//会话过期，返回登录页面
+					if(data.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+					alert(data.meta.message);
+				}
+			}
+		})
+		//点击去支付
+		$("input[type='submit']").live("click",function(){
+			if(!$($("input[name='payWay']")[0]).attr("checked") && !$($("input[name='payWay']")[1]).attr("checked")){
+				alert("请选择支付方式");
+				return;
+			}
+			if($($("input[name='payWay']")[0]).attr("checked")){
+				if(parseFloat(totalMoney) > parseFloat(usableBalance)){
+					return;	
+				}
+			}
+			var value = $("input[name='payWay']:checked").val();
+			var data = {
+				"custId":custId,
+				"token":token,
+				"tradeOrderId":orderId,
+				"fundsType":"06",
+				"tradeAmt":totalMoney,
+				"tradeTalAmt":totalMoney,
+				"redEnvAmt":"0",
+				"channelCode":"001"
+			}
+			if(value == "00"){
+				showShade("balance",data,"09");//余额支付
+			}else if(value == "02"){
+				getData("quick",data,"08");//快捷支付
+			}
+		})
+		//弹出交易密码
+		function showShade(pageName,data,certBusCase){
+			$(".pop_up").removeClass("none");
+			//点击确认密码，跳转短信确认页面
+			$(".payWin_content .btn").live("click",function(){
+				var payPassw = $("input[name='payPassw']").val();
+				if(!payPassw){alert("请输入交易密码");return;}
+				data.payPassword = hex_md5(payPassw);
+				getData(pageName,data,certBusCase);
+			})
+		}
+		//发送短信验证码
+		function getData(pageName,data,certBusCase){
+			localStorage.setItem("payData",JSON.stringify(data));
+			localStorage.setItem("pageName",pageName);
+			Utils.ajax({
+				url:"/restful/idencode/sendMsgCode",
+				type:"POST",
+				data:{"phoneNum":localStorage.getItem("loginName"),"certBusCase":certBusCase,"custId":custId,"tradeOrderId":orderId},
+				success: function (response, xml) {
+	            	// 此处放成功后执行的代码
+		            if(response.meta.success){
+						location.href = "SMSconfirm.html";
+		            }else{
+		            	//会话过期，返回登录页面
+						if(response.meta.message.indexOf("请您先登录")>-1){
+							location.href = "timeOut.html";
+							return;
+						}
+		            	alert(response.meta.message);
+		            }
+		        }
+			});
+		}
+		//点击关闭
+		$(".payWin_content img").live("click",function(){
+			$(".pop_up").addClass("none");
+		})
+	})
+	//检测余额是否足够
+	function checkBanlance(el){
+		if($(el).attr("checked")){
+			if($(el).val() == "00"){
+				if(parseFloat(totalMoney) > parseFloat(usableBalance)){
+					$(".payWrap_radio em i").show();
+					$("input[name='payOrder']").attr("disabled","disabled");
+					$("input[name='payOrder']").css("background-color","#ccc");
+				}
+			}else{
+				$("input[name='payOrder']").attr("disabled","");
+				$("input[name='payOrder']").css("background-color","#FF5252")
+			}
+		}
+	}
+</script>
+</html>

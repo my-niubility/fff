@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+	<title>资金流水</title>
+	<link rel="stylesheet" href="css/common.css" type="text/css"/>
+	<link rel="stylesheet" href="css/member.css" type="text/css"/>
+	<link rel="stylesheet" href="css/pagination.css" />
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+	<!--CONTENT_BEGIN-->
+	<div  class="bodybg">
+	     <div class="w1000 clearfix">
+	    	<!--面包屑-->
+	    	<div class="crumb"><a href="index.html">首页 </a> > <a href="myAsset.html">会员中心 </a> > <a href="tradeRecord.html">交易管理</a> > <a class="col1">资金流水</a></div>        
+	        <!--侧导航BEGIN-->
+	        <div class="nav_left fl">
+	            <div class="nav_box clearfix">
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon1"></i>资产管理</a>
+	                   <ul class="nav_ul1 clearfix none">
+		                   	<li><a href="myAsset.html">我的资产</a></li>
+		                   	<!--<li><a href="myRedpac.html">我的红包</a></li>
+	                   		<li><a href="myLottery.html">我的奖券</a></li>-->
+		               </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon2"></i>交易管理</a>
+	                    <ul class="nav_ul1 clearfix">
+	                       	<li><a href="tradeRecord.html">交易记录</a></li>
+	                   		<li><a href="rechargeRecord.html">充值记录</a></li>
+	                   		<li><a href="cashRecord.html">提现记录</a></li>
+	                   		<li><a class="active" href="">资金流水</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon3"></i>安全管理</a>
+		                <ul class="nav_ul1 clearfix none">
+		                   	<li><a href="identityManagement.html">认证管理</a></li>
+		                   	<li><a href="pasManagement.html">密码管理</a></li>
+	                   		<li><a href="cardManagement.html">银行卡管理</a></li>
+		                </ul>
+		           </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon4"></i>信息管理</a>
+		                <ul class="nav_ul1 clearfix none">
+		                   	<li><a href="baseInfo.html">基本信息</a></li>
+	                   		<li><a href="messageCenter.html">消息中心</a></li>
+		                </ul>
+		           </div>
+	           </div>   
+	        </div>
+	        <!--侧导航END-->
+	        <div class="con_right fr clearfix">
+	            <div class="border_box bgcol clearfix">
+	                <div class="mem_tit">
+	                    <ul>
+	                        <li><a href="tradeRecord.html">交易记录</a></li>
+	                        <li><a href="rechargeRecord.html">充值记录</a></li>
+	                        <li><a href="cashRecord.html">提现记录</a></li>
+	                        <li class="active"><a href="">资金流水</a></li>
+	                    </ul>
+	                </div>
+	                <!---->
+	                <div class="clearfix asset_box">
+	                    <!--日历begin-->
+	                    <div class="date_box">
+	                        <span class="fl spantit">选择日期：</span>
+	                        <div class="date fl">
+	                            <ul class="inline">
+		                            <input class="inline laydate-icon" id="start" placeholder="年-月-日"></input>
+		                             	至 
+		                            <input class="inline laydate-icon" id="end" placeholder="年-月-日"></input>
+	                            </ul>
+	                        </div>
+	                        <a class="btntwo fl" href="javascript:;">搜索</a>
+	                    </div>
+	                    <!--日历end-->
+	                    <!--条件筛选-->
+	                    <div id="dateFilter" class="clearfix choose_box">
+	                        <span class="fl spantit">交易日期：</span>
+	                        <ul class="fl ulcon">
+	                            <li><a data-filter="" class="active" href="javascript:;">全部</a></li>
+	                            <li><a data-filter="7days" href="javascript:;">最近7天</a></li>
+	                        </ul>
+	                    </div>
+	                    <div id="statusFilter" class="clearfix choose_box">
+	                        <span class="fl spantit">类型：</span>
+	                        <ul class="fl ulcon">
+	                            <!--<li><a data-filter="" href="javascript:;">全部</a></li>-->
+	                            <li><a data-filter="01" class="active" href="javascript:;">充值</a></li>
+	                            <li><a data-filter="02" href="javascript:;">购买</a></li>
+	                            <li><a data-filter="03" href="javascript:;">提现</a></li>
+	                            <li><a data-filter="04" href="javascript:;">收益</a></li>
+	                            <!--<li><a data-filter="05" href="javascript:;">赎回</a></li>-->
+	                        </ul>
+	                    </div>
+	                    <!--list-->
+	                    <div class="clearfix">
+	                        <table class="asset_wrap">
+	                            <thead class="asset_wrap_tit">
+	                                <tr>
+	                                    <td>交易时间</td>
+	                                    <td>交易类型</td>
+	                                    <td>说明</td>
+	                                    <td>关联订单号/流水号</td>
+	                                    <td>收入</td>
+	                                    <td>支出</td>
+	                                    <td>状态</td>
+	                                </tr>
+	                            </thead>
+	                            <tbody class="asset_wrap_con">
+	                                <tr>
+	                                    <td>2016-04-07</td>
+	                                    <td>充值</td>
+	                                    <td>充值</td>
+	                                    <td>14201604071112454</td>
+	                                    <td>1.00元</td>
+	                                    <td>无</td>
+	                                    <td>成功</td>
+	                                </tr>
+	                                <tr>
+	                                    <td>2016-04-07</td>
+	                                    <td>购买</td>
+	                                    <td>证联资本支付</td>
+	                                    <td>14201604071112454</td>
+	                                    <td>无</td>
+	                                    <td>1.00元</td>
+	                                    <td>成功</td>
+	                                </tr>
+	                            </tbody>
+	                        </table>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	        <!--分页-->
+			<div class="fr pagination clearfix">
+				<input type="hidden" data-nowPage="1" />
+				<span class="fl nobor">共<i>256</i>条记录</span>
+				<a class="none" href="javascript:prePage();" title="上一页"><<</a>
+				<ul class="clearfix fl">
+					<li class="pagin_active"><a href="">1</a></li>
+					<li><a href="">2</a></li>
+					<li><a href="">3</a></li>
+					<li><a href="">4</a></li>
+					<li><a href="">5</a></li>
+				</ul>
+				<a class="none" href="javascript:nextPage();" title="下一页">>></a>
+				<a href="javascript:lastPage();" title="最后一页">最后一页</a>
+			</div>
+	    </div>
+	</div>
+	<script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/laydate.js"></script>
+<script type="text/javascript" src="js/record.js" ></script>
+<script type="text/javascript">
+//请求地址 httpUrlCount：查询总条数，httpUrlQuery：查询对应条件的数据
+	var httpUrlCount = "/restful/tradeorder/queryfundCount";
+	var httpUrlQuery = "/restful/tradeorder/queryfund";
+	var recentTime,nowTime,status="01";
+	var orderId = "";
+	queryTotalNum();
+	//得到数据后渲染页面
+	function appendHtml(data){
+		if(data.serFundQryRsltItemDto && data.serFundQryRsltItemDto.length>0){
+			data = data.serFundQryRsltItemDto;
+			var telp = '';
+			var benefit,state,type,expend;
+			for(var i = 0;i<data.length;i++){
+//				switch(data[i].status){
+//					case "1":
+//						state = "充值成功";
+//						break;
+//					case "2":
+//						state = "处理中";
+//						break;
+//					case "3":
+//						state = "充值失败";
+//						break;
+//					default:
+//						state = "受理成功";
+//						break;
+//				}
+				benefit = data[i].benefit + "元";
+				expend = data[i].expend + "元";
+				if(!data[i].benefit){
+					benefit = "无";
+				}
+				if(!data[i].expend){
+					expend = "无";
+				}
+				switch (status){
+					case "01":
+						type="充值";
+						break;
+					case "02":
+						type="购买";
+						break;
+					case "03":
+						type="提现";
+						break;
+					case "04":
+						type="收益";
+						break;
+					default:
+						type = "充值";
+						break;
+				}
+				telp += '<tr>'+
+	                '<td>'+data[i].tradeTime+'</td>'+
+	                '<td>'+type+'</td>'+
+	                '<td>'+type+'</td>'+
+	                '<td><a href="javascript:;" onclick=\'openTrade("'+data[i].orderId+'");\' >'+data[i].orderId+'</a></td>'+
+	                '<td>'+benefit+'</td>'+
+	                '<td>'+expend+'</td>'+
+	                '<td>成功</td>'+
+	            '</tr>';
+			}
+			$(".asset_wrap_con").html(telp);
+		}else{
+			$(".asset_wrap_con").html("<tr><td colspan='7'>暂无数据</td></tr>");
+		}
+	}
+	//根据订单号跳转到交易记录页面
+	function openTrade(orderId){
+//		localStorage.setItem("orderId",orderId);
+		location.href = "rechargeRecord.html?orderId="+orderId;
+	}
+</script>
+</html>

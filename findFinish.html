@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<title>成功</title>
+		<link rel="stylesheet" href="css/common.css" type="text/css"/>
+		<link rel="stylesheet" href="css/page.css" type="text/css"/>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/header.js" ></script>
+		<!--内容区域start-->    
+		<div class="bodybg content_padd15">
+			<div class="w1000 clearfix minHei300">
+				<div class="finish_count">
+					<p>恭喜您，密码修改成功</p>
+					<p>3</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/footer.js" ></script>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+	<script type="text/javascript" src="js/tools.js" ></script>
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript">
+		$(function(){
+			var el = $(".finish_count p:last-child");
+			countDown(parseInt(el.text()),el);
+			var pageName = localStorage.getItem("pageName");
+			if(pageName.indexOf("修改登录密码")>-1){
+				localStorage.clear();
+				setTimeout(function(){location.href = "login.html";},3000);
+			}else if(pageName.indexOf("修改交易密码")>-1 || pageName.indexOf("设置交易密码")>-1){
+				setTimeout(function(){location.href = "myAsset.html";},3000);
+			}else if(pageName.indexOf("充值")>-1){
+				$(".finish_count p:first-child").html("恭喜您，充值成功！");
+				setTimeout(function(){location.href = "rechargeRecord.html";},3000);
+			}else if(pageName.indexOf("提现")>-1){
+				$(".finish_count p:first-child").html("恭喜您，提现成功！");
+				setTimeout(function(){location.href = "cashRecord.html";},3000);
+			}else if(localStorage.getItem("pageName").indexOf("balance")>-1){   //余额支付成功
+				$(".finish_count p:first-child").html("恭喜您，支付成功！");
+				setTimeout(function(){location.href = "tradeRecord.html";},3000);
+			}else if(localStorage.getItem("pageName").indexOf("quick")>-1){   //快捷支付成功
+				$(".finish_count p:first-child").html("恭喜您，支付成功！");
+				setTimeout(function(){location.href = "tradeRecord.html";},3000);
+			}
+		})
+	</script>
+</html>

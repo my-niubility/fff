@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>充值</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body class="mask_layer">
+	<script type="text/javascript" src="js/header.js" ></script>
+	<!--内容区_begin-->
+	<div class="bodybg content_padd15">
+		<div class="w1000 clearfix ">
+			<div class="rechange_bbor">
+				<div class="rechange_sum">
+					<a>充值金额</a>
+					<input type="text" name="money" placeholder="0" onpaste="return false;" onkeyup="getValue();" onchange="getValue();"/>
+					<a>(当前可用金额<i>0</i>元  充值后余额<i>0</i>元)</a>
+				</div>
+			</div>
+			<div class="rechange_bbor">
+				<div class="rechange_way clearfix">
+					<a class="fl">充值方式</a>
+					<div class="card_speed fl">
+						<input type="radio" class="fl" checked name="payWay" value="01" />
+						<a>银行卡快捷支付</a>
+						<div class="rechange_cardImg">
+							<img src="img/nyBack.png" />
+							<!--<a class="pudongLog"></a>-->
+						</div>
+					</div>
+					<!--<div class="card_speed fl">
+						<input type="radio" class="fl" name="payWay" value="02" />
+						<a>使用线下转账</a>
+						<div class="rechange_cardImg">
+							<img src="img/offlinePay_img.png" />
+						</div>
+					</div>-->
+				</div>
+			</div>
+			<div class="rechange_bbor_gray">
+				<div>
+					<div class="rechange_confim btn">确认充值</div>
+				</div>
+			</div>
+			<div class="rechange_tips">
+				<div>
+					<p>温馨提示：</p>
+					<p>1.具体充值限额依各银行充值限额为准，如您想充值的金额超过单笔限额，请分多次充值。</p>
+					<p>2.充值金额将在10分钟之内到账。</p>
+					<p>3.如有问题，请联系客服：400-616-1515。</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="pop_up payWin none">
+		<div class="payWin_content">
+			<img src="img/close.png"/>
+			<div class="payTitle">交易密码</div>
+			<div class="pay_detailTile">请输入交易密码</div>
+			<div class="pay_input"><input type="password" name="payPassw"/></div>
+			<div class="btn">提交</div>
+		</div>
+	</div>
+	<!--内容区_end-->
+	<script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/doT.min.js" ></script>
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/md5.js" ></script>
+<script type="text/javascript">
+	// 输入余额时，相应的值改变
+	var balance;
+	$(function(){
+		//查询默认银行卡信息
+		Utils.ajax({
+			url:"/restful/querycard/default",
+			type:"post",
+			data:{"custId":custId},
+			success:function(data,xml){
+				if(data.meta.success){
+					var bankType = data.data.bankType;//银行名
+					var backIcon;
+					for(var k in backJson){
+						for(var m in backJson[k]){
+							if(bankType == m){
+//								bankType = backJson[k][m];
+								backIcon = backJson[k]["bankIcon"];
+							}
+						}
+					}
+					$(".rechange_cardImg").html("<img src='"+backIcon+"'/>")
+				}else{
+					//会话过期，返回登录页面
+					if(data.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+					alert(data.meta.message);
+				}
+			}
+		})
+		//查询余额
+		Utils.ajax({
+			url:"/restful/custinfo/balance/query",
+			type:"post",
+			data:{"custId":custId},
+			success:function(data,xml){
+				if(data.meta.success){
+					balance = data.data.usableBalance;//可用余额
+					$(".rechange_sum i:first-child").text(balance);
+					$(".rechange_sum i:last-child").text(balance);
+				}else{
+					//会话过期，返回登录页面
+					if(data.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+					alert(data.meta.message);
+				}
+			}
+		})
+	})
+	function getValue(){
+		var amount = $("input[name='money']").val();
+		var reg = /^([0-9.]+)$/;
+		if(!reg.test(amount)){alert("只能输入数字");return;}
+		$(".rechange_sum i:first-child").text(amount);
+		$(".rechange_sum i:last-child").html(parseFloat(amount)+parseFloat(balance));
+	}
+	$(".rechange_confim").bind("click",function(){
+		var amount = $("input[name='money']").val();
+		if(!amount){alert("充值金额不能为空");return;}
+		var payWay = $("input[name='payWay']").val();
+		switch (payWay){
+			case "01":
+				useCard(amount);
+				break;
+			case "02":
+				offline(amount);
+				break;
+		}
+	})
+	$(".payWin_content img").live("click",function(){
+		$(".pop_up").addClass("none");
+	})
+	//使用线下转账
+//	function offline(amount){
+//		location.href = "";
+//	}
+	//使用银行快捷支付
+	function useCard(amount){
+		$(".payWin").removeClass("none");
+		$(".payWin_content .btn").live("click",function(){
+			var payPassw = $("input[name='payPassw']").val();
+			if(!payPassw){alert("请输入交易密码");return;}
+			var data = {
+				"custId":custId,
+				"payPassword":hex_md5(payPassw),
+				"rechargeAmt":amount,
+				"rechargeType":"01",
+				"channelCode":"001"
+			};
+			localStorage.setItem("rechageData",JSON.stringify(data));
+			localStorage.setItem("pageName","充值");
+			Utils.ajax({
+				url:"/restful/idencode/sendMsgCode",
+				type:"POST",
+				data:{"phoneNum":localStorage.getItem("loginName"),"certBusCase":"04","custId":custId},
+				success: function (response, xml) {
+	            	// 此处放成功后执行的代码
+		            if(response.meta.success){
+						location.href = "SMSconfirm.html";
+		            }else{
+		            	//会话过期，返回登录页面
+						if(response.meta.message.indexOf("请您先登录")>-1){
+							location.href = "timeOut.html";
+							return;
+						}
+		            	alert(response.meta.message);
+		            }
+		        }
+			});
+		})
+	}
+</script>
+</html>

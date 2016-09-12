@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>消息中心</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+<link rel="stylesheet" href="css/pagination.css" />
+</head>
+<body class="mask_layer">
+	<script type="text/javascript" src="js/header.js" ></script>
+	<!--内容区_begin-->
+	<div  class="bodybg">
+		<div class="w1000 clearfix">
+	    	<!--面包屑-->
+	    	<div class="crumb"><a href="index.html">首页 </a> > <a href="myAsset.html">会员中心 </a> > <a href="baseInfo.html">信息管理</a> > <a class="col1">消息中心</a></div>
+    		<!--侧导航BEGIN-->
+	        <div class="nav_left fl">
+	            <div class="nav_box clearfix">
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon1"></i>资产管理</a>
+	                   <ul class="nav_ul1 clearfix none">
+	                       <li><a href="myAsset.html">我的资产</a></li>
+	                       <!--<li><a href="myRedpac.html">我的红包</a></li>
+	                       <li><a href="myLottery.html">我的奖券</a></li>-->
+	                   </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon2"></i>交易管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="tradeRecord.html">交易记录</a></li>
+	                       <li><a href="rechargeRecord.html">充值记录</a></li>
+	                       <li><a href="cashRecord.html">提现记录</a></li>
+	                       <li><a href="capitalFlow.html">资金流水</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon3"></i>安全管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="identityManagement.html">认证管理</a></li>
+	                       <li><a href="pasManagement.html">密码管理</a></li>
+	                       <li><a href="cardManagement.html">银行卡管理</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon4"></i>信息管理</a>
+	                    <ul class="nav_ul1 clearfix">
+	                       <li><a href="baseInfo.html">基本信息</a></li>
+	                       <li><a class="active" href="">消息中心</a></li>
+	                    </ul>
+		           </div>   
+		        </div>
+	        </div>
+	        <!--侧导航END--> 
+	        <!--右侧信息start-->
+        	<div class="bgcol baseInfo_rg fl">
+        		<div class="baseInfo_borb clearfix">
+        			<div class="baseInfo_title fl">站内消息</div>
+        			<!--<a class="fr">共<i class="count">3</i>条消息，其中<i class="unreadCount">0</i>条未读</a>-->
+        		</div>
+        		<div class="message_form">
+	        		<div class="message_thead clearfix">
+	        			<ul class="clearfix">
+	        				<li class="" ><a id="allmessage" data-filter="" class="active" href="javascript:;">所有消息<i class="unreadCount">(3)</i></a></li>
+	        				<li class="" ><a data-filter="0"  href="javascript:;">系统消息<i class="unreadCount" style="display:none;">(3)</i></a></li>
+	        				<li class="nob" ><a data-filter="1"  href="javascript:;">业务消息<i class="unreadCount" style="display:none;">(3)</i></a></li>
+	        				<li class="nob"><a class="col3" onclick="asRead();">标记为已读</a></li>
+	        				<li class="nob" onclick="cancelSel();">删除</li>
+	        			</ul>
+        			</div>
+        			<table border="0" cellpadding="0" cellspacing="0" class="asset_wrap">
+        				<tbody class="asset_wrap_con">
+                            <tr id="baseTr">
+                                <th width="13"><input name="ids" id="inputids" type="checkbox" class="checkBox" /></th>
+                                <th>类型</th>
+                                <th>标题</th>
+                                <th>状态</th>
+                                <th>时间</th>
+                            </tr>
+                          <!-- <tr>
+                                <td class="nobor"><input name="id" type="checkbox" class="checkBox" /></td>
+                                <td class="nobor">系统消息</td>
+                                <td class="nobor click_style" onclick="messShow(this);">首次购买成功</td>
+                                <td class="nobor">解锁50元、80元红包</td>
+
+                                <td class="nobor">2016-04-01  11:36：29</td>
+                            </tr>
+                            <tr class="font_e60012">
+                                <td class="nobor"><input name="id" type="checkbox" class="checkBox" /></td>
+                                <td class="nobor">系统消息</td>
+                                <td class="nobor click_style" onclick="messShow(this);">首次购买成功</td>
+                                <td class="nobor">解锁50元、80元红包</td>
+
+                                <td class="nobor">2016-04-01  11:36：29</td>
+                            </tr>
+                            <tr>
+                                <td class="nobor"><input name="id" type="checkbox" class="checkBox" /></td>
+                                <td class="nobor">系统消息</td>
+                                <td class="nobor click_style" onclick="messShow(this);">首次购买成功</td>
+                                <td class="nobor">解锁50元、80元红包</td>
+
+                                <td class="nobor">2016-04-01  11:36：29</td>
+                            </tr>-->
+                        </tbody>
+                    </table>
+                    <div class="message_comm none">
+                    	尊敬的用户，恭喜您首次购买成功！报答您的厚爱，将为您解锁50元、80元红包。
+                    </div>
+    			</div>
+        	</div>
+	        <!--右侧信息end-->
+			<!--分页-->
+			<div class="fr pagination clearfix">
+				<input type="hidden" data-nowPage="1" />
+				<span class="fl nobor">共<i class="count">256</i>条记录</span>
+				<a class="none" href="javascript:prePage();" title="上一页"><<</a>
+				<ul class="clearfix fl">
+					<li class="pagin_active"><a href="">1</a></li>
+					<li><a href="">2</a></li>
+					<li><a href="">3</a></li>
+					<li><a href="">4</a></li>
+					<li><a href="">5</a></li>
+				</ul>
+				<a class="none" href="javascript:nextPage();" title="下一页">>></a>
+				<a href="javascript:lastPage();" title="最后一页"></a>
+			</div>
+		</div>
+	</div>
+    <!--内容区_end-->
+	<script type="text/javascript" src="js/footer.js" ></script>
+    <!--确认是否删除弹框-->
+    <div class="pop_up none" id="delconfirm">
+    	<div class="popUp_con">
+	    	<div class="popUp_header">
+	    		<a>提示</a>
+	    		<a class="closeImg fr"></a>
+	    	</div>
+    		<div class="least_choose none">
+		    	<div class="popUp_title">至少选择一条消息</div>
+		    	<div class="submit">提交</div>
+	    	</div>
+	    	<div class="confim none" >
+	    		<p>是否确认删除所选内容</p>
+	    		<div class="twoBtn clearfix"><a class="delete">确认</a><a class="fr">取消</a></div>
+	    	</div>
+    	</div>
+    </div>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/message.js" ></script> 
+</html>
+

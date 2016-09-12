@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>证联金融-登录</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>	
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+	<!--内容区_begin-->
+	<div class="content">
+		<div class="form_floor">
+			<div class="login_form">
+				<div class="login">
+					<div class="form">
+						<!--<a class="login_tel">手机号：</a>-->
+						<span class="form_input">
+							<input maxlength="11" onblur="checkPhone(this.value,this)" type="text" name="telephone" placeholder="手机号将作为您的登录名" />
+						</span>
+					</div>
+					<div class="form">
+						<!--<a class="login_tel">登录密码：</a>-->
+						<span class="form_input">
+							<input type="password" name="password" placeholder="请输入登录密码"/>
+						</span>
+					</div>
+					<div class="form">
+						<!--<a class="login_tel">验证码：</a>-->
+						<span class="form_input">
+							<input type="text" name="code" placeholder="请输入验证码"/>
+						</span>
+						<img class="btn" id="codeImg" onclick="changeImg(this)" src="../../restful/idencode/getCertCode" />
+					</div>
+					<div class="password_href">
+						<a href="findLoginPass.html">忘记密码</a>
+					</div>
+					<a class="login_btn btn">
+						登录
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="comment">
+		<div class="comment_area">
+			<p>温馨提示</p>
+			<p>1、注册证联金融，即可参与新手福利活动</p>
+			<p>2、每位注册用户只能参与一次新手福利活动</p>
+			<p>3、提现收益需绑定身份证、银行卡及手机号</p>
+			<p>4、绑定后的身份证、银行卡为账户唯一信息，其它账号不可重复使用</p>
+		</div>
+	</div>
+	<!--内容区_end-->
+	<script type="text/javascript" src="js/footer.js" ></script>
+	<!--提示框-->
+	<div class="alert_box">
+		<div class="alert_cont"></div>
+	</div>
+</body>
+<script type="text/javascript" src="js/motai.js"></script>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/tools.js"></script><!--自定义封装函数-->
+<script type="text/javascript" src="js/md5.js"></script>
+<script type="text/javascript">
+//切换图片验证码  @param  el是当前点击元素
+	var src = $(".form img").attr("src");
+	localStorage.clear();
+	sessionStorage.clear();
+	//检测手机号
+	function checkPhone(telNum,el){
+		if(!isPhoneNum(telNum)){
+			$(el).val("");
+			alert("手机号不正确，请重新输入");
+			return;
+		}
+	}
+	//切换图片验证码
+	function changeImg(el){
+		var num = "?"+Math.random();
+		$(el).attr("src",src + num);
+	}
+	$(".login_btn").bind("click",function(){
+		var telNum = $("input[name='telephone']").val();
+		telNum = telNum.replace(/\s+/g,"");
+		if(!telNum){
+			alert("手机号不能为空");
+			$("input[name='telephone']").focus();
+			changeImg($("#codeImg"));
+			$("input[name='code']").val("");
+			return;
+		}
+		var pass = $("input[name='password']").val();
+		if(!pass){
+			alert("密码不能为空");
+			changeImg($("#codeImg"));
+			$("input[name='code']").val("");
+			return;
+		}
+		var code = $("input[name='code']").val();
+		if(!code){
+			alert("验证码不能为空");
+			changeImg($("#codeImg"));
+			$("input[name='code']").val("");
+			return;
+		}
+//		登录
+		Utils.ajax({
+	        url: "/restful/user/login",              //请求地址
+	        type: "POST",                       			   //请求方式
+	        data: {"certCode":code,"password":hex_md5(pass),"mobile":telNum},         				   //请求参数
+	        success: function (response, xml) {
+	            // 此处放成功后执行的代码
+	            if(response.meta.success){
+	            	if(response.data){
+		            	var custId = response.data.custId;
+		            	sessionStorage.setItem("custId",custId);
+		            	localStorage.setItem("lastLoginTime",response.data.lastLoginTime);
+		            	localStorage.setItem("loginName",telNum);
+		            	setTimeout(function(){
+			            	location.href = "index.html";
+		            	},1000);
+	            	}
+	            }else{
+	            	alert(response.meta.message);
+	            	changeImg($("#codeImg"));
+	            	$("input[name='code']").val("");
+	            	if(response.meta.message.indexOf("请先去注册")>-1){
+	            		location.href = "register.html";
+	            	}
+	            }
+	        }
+	    });
+	})
+</script>
+</html>

@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>银行卡管理</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+    <!--内容区域start-->
+    <div class="bodybg">
+    	<div class="w1000 clearfix">
+	    	<!--面包屑-->
+	    	<div class="crumb"><a href="index.html">首页 </a> > <a href="myAsset.html">会员中心 </a> > <a href="identityManagement.html">安全管理</a> > <a class="col1">银行卡管理</a></div>
+			<!--侧导航BEGIN-->
+	        <div class="nav_left fl">
+	            <div class="nav_box clearfix">
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon1"></i>资产管理</a>
+	                   <ul class="nav_ul1 clearfix none">
+	                       <li><a href="myAsset.html">我的资产</a></li>
+	                       <!--<li><a href="myRedpac.html">我的红包</a></li>
+	                       <li><a href="myLottery.html">我的奖券</a></li>-->
+	                   </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon2"></i>交易管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="tradeRecord.html">交易记录</a></li>
+	                       <li><a href="rechargeRecord.html">充值记录</a></li>
+	                       <li><a href="cashRecord.html">提现记录</a></li>
+	                       <li><a href="capitalFlow.html">资金流水</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon3"></i>安全管理</a>
+	                    <ul class="nav_ul1 clearfix">
+	                       <li><a href="identityManagement.html">认证管理</a></li>
+	                       <li><a href="pasManagement.html">密码管理</a></li>
+	                       <li><a class="active" href="cardManagement.html">银行卡管理</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon4"></i>信息管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="baseInfo.html">基本信息</a></li>
+	                       <li><a href="messageCenter.html">消息中心</a></li>
+	                    </ul>
+	               </div>
+	           </div>   
+	        </div>
+	        <!--侧导航END-->
+	        <!--右侧信息start-->
+	        <div class="bgcol baseInfo_rg fl">
+        		<div class="baseInfo_borb">
+        			<div class="baseInfo_title">基本信息</div>
+        		</div>
+        		<div class="message_form">
+	    			<table cellspacing="0" border="0" cellpadding="0" class="card_center">
+	    				<thead>
+		    				<tr>
+		    					<th>持卡人</th>
+		    					<th>发卡行</th>
+		    					<th>卡号</th>
+		    					<th>预留手机号</th>
+		    					<th>创建时间</th>
+		    					<th class="nobor">属性</th>
+		    				</tr>
+	    				</thead>
+	    				<tbody>
+		    				<!--<tr>
+		    					<td>张三</td>
+		    					<td>浦发银行</td>
+		    					<td>6217********8888</td>
+		    					<td>182****9999</td>
+		    					<td>北京市</td>
+		    					<td>提现卡</td>
+		    				</tr>-->
+	    				</tbody>
+	    			</table>
+    			</div>
+    			<div class="many_card clearfix">
+    				<ul class="clearfix">
+    					<li class="clearfix">
+    						<a class="pudongLog fl"></a>
+    						<a class="back_certif fl">银行认证</a>
+    					</li>
+    					<li>
+    						<a class="cardNo">6217**********3892</a>
+    						<a class="cardType">（提现卡）</a>
+    					</li>
+    				</ul>
+    			</div>
+    			<div class="rechange_tips">
+					<div class="nobor">
+						<p>温馨提示：</p>
+						<p>1.同一银行，仅可绑定一张银行卡；</p>
+						<p>2.默认银行卡即为提现银行卡；</p>
+						<p>3.新增银行卡须与首次绑定的银行卡姓名、身份证一致；</p>
+						<p>4.目前最多可绑定1张银行卡。	</p>
+					</div>
+				</div>
+        	</div>
+	        <!--右侧信息end-->
+        </div>
+    </div>
+    <script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript">
+	var userName;
+	$(function(){ 
+		Utils.ajax({
+			url:"/restful/querycard/default",
+			type:"post",
+			data:{"custId":custId},
+			success:function(data,xml){
+				if(data.meta.success){
+					if(data.data){
+						Utils.ajax({
+							url:"/restful/custinfo/baseinfo/query",
+							type:"post",
+							data:{"custId":custId},
+							success:function(req,xml){
+								userName = req.data.userName;
+								$(".many_card").show();
+								var cardHtml = '';
+								var bankType = data.data.bankType;//银行名
+								var backIcon;
+								for(var k in backJson){
+									for(var m in backJson[k]){
+										if(bankType == m){
+											bankType = backJson[k][m];
+											backIcon = backJson[k]["bankIcon"];
+										}
+									}
+								}
+								var cardNo = data.data.cardNo;  //卡号
+			            		if(cardNo.length>10){
+									cardNo = cardNo.replace(cardNo.substr(4,cardNo.length-8),"******");
+			            		}
+			            		var cardType = data.data.cardType;
+			            		if(cardType == "1"){
+			            			cardType = "借记卡";
+			            		}else if(cardType == "2"){
+			            			cardType = "贷记卡";
+			            		}else{
+			            			cardType = "借记卡";
+			            		}
+			            		if(userName.length>10){
+									userName = userName.replace(userName.substr(3,userName.length-7),"***");
+			            		}
+								cardHtml += '<tr>'+
+					    					'<td>'+data.data.cardName+'</td>'+
+					    					'<td>'+bankType+'</td>'+
+					    					'<td>'+cardNo+'</td>'+
+					    					'<td>'+userName+'</td>'+
+					    					'<td>'+data.data.createDate+'</td>'+
+					    					'<td>'+cardType+'</td>'+
+					    					'</tr>';
+			    				$(".card_center tbody").html(cardHtml);
+			    				$(".pudongLog").css("background-image","url("+backIcon+")");
+			    				$(".cardNo").html(cardNo);
+			    				$(".cardType").html(cardType);
+		    				}
+						});
+					}else{
+						$(".card_center tbody").html("<tr><td colspan='6'>您未绑定银行卡！</td></tr>");
+						$(".many_card").hide();
+					}
+				}else{
+					//会话过期，返回登录页面
+					if(data.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+					}
+				}
+			}
+		});
+	});
+</script>
+</html>

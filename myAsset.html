@@ -1,0 +1,494 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>我的资产</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/member.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js"></script>
+	<!--内容区域start-->
+    <div class="bodybg">
+    	<div>
+	    	<div class="w1000 clearfix">
+		    	<!--面包屑-->
+				<div class="crumb"><a href="index.html">首页 </a> > <a href="myAsset.html">会员中心 </a> > <a href="myAsset.html">资产管理</a> > <a class="col1">我的资产</a></div>
+				<!--侧导航BEGIN-->
+				<div class="nav_left fl">
+			        <div class="nav_box clearfix">
+			           <div class="nav_list"><a href="javascript:;"><i class="nav_icon1"></i>资产管理</a>
+			               <ul class="nav_ul1 clearfix">
+			                   	<li><a class="active" href="">我的资产</a></li>
+			                   	<!--<li><a href="myRedpac.html">我的红包</a></li>
+	                       		<li><a href="myLottery.html">我的奖券</a></li>-->
+			               </ul>
+			           </div>
+			           <div class="nav_list"><a href="javascript:;"><i class="nav_icon2"></i>交易管理</a>
+			                <ul class="nav_ul1 clearfix none">
+			                   	<li><a href="tradeRecord.html">交易记录</a></li>
+	                       		<li><a href="rechargeRecord.html">充值记录</a></li>
+	                       		<li><a href="cashRecord.html">提现记录</a></li>
+	                       		<li><a href="capitalFlow.html">资金流水</a></li>
+			                </ul>
+			           </div>
+			           <div class="nav_list"><a href="javascript:;"><i class="nav_icon3"></i>安全管理</a>
+			                <ul class="nav_ul1 clearfix none">
+			                   	<li><a href="identityManagement.html">认证管理</a></li>
+			                   	<li><a href="pasManagement.html">密码管理</a></li>
+	                       		<li><a href="cardManagement.html">银行卡管理</a></li>
+			                </ul>
+			           </div>
+			           <div class="nav_list"><a href="javascript:;"><i class="nav_icon4"></i>信息管理</a>
+			                <ul class="nav_ul1 clearfix none">
+			                   	<li><a href="baseInfo.html">基本信息</a></li>
+	                       		<li><a href="messageCenter.html">消息中心</a></li>
+			                </ul>
+			           </div>
+			       </div>   
+			    </div>
+		    	<!--侧导航END-->
+			    <div class="con_right fr">
+					<div id="userInfo">
+						<script id="userInfoTem" type="text/x-dot-template">
+					        <div class="border_box mem_box1 clearfix">
+					            <div class="memcon1 fl clearfix">
+					                <div>
+					                	{{?it.nickname}}
+					                		{{=it.nickname}}
+				                		{{??}}
+				                			{{=it.userName}}
+			                			{{?}}
+					                </div>
+					                <div>上次登录时间：{{=it.lastLoginTime}}</div>
+					                <div class="icon_box">
+					                    <i title="注册" class="phone_icon phone_icon_active"></i>
+					                    {{? it.isPassIdentify == "1" }}
+					                    <i title="实名认证" class="sf_icon sf_icon_active"></i>
+					                    {{??}}
+					                    <i title="实名认证" class="sf_icon"></i>
+					                    {{?}}
+					                    {{? it.isBindCard == "1" }}
+					                    <i title="绑定卡" class="card_icon card_icon_active"></i>
+					                    {{??}}
+					                    <i title="绑定卡" class="card_icon"></i>
+					                    {{?}}
+					                    {{? it.isSetTradePwd == "1" }}
+					                    <i title="交易密码" class="pas_icon pas_icon_active"></i>
+					                    {{??}}
+					                    <i title="交易密码" class="pas_icon"></i>
+					                    {{?}}
+					                </div>
+					            </div>
+					            <div class="memcon2 fl clearfix">
+					                <div class="memcon2_1">
+					                    <div class="memcon2_1_1 clearfix">可用余额<span class="col1">0</span>元</div>
+					                    <div class="clearfix">
+					                    	<a href="javascript:;" class="top-up fl">充值</a>
+					                    	<a href="javascript:;" class="withdraw fl">提现</a>
+					                    </div>
+					                </div>
+					                <div class="memcon2_2">
+					                    <div class="fl memcon2_2l"><i class="hb"></i><span>红包：{{=it.redEnvelopeNum}}个</span></div>
+					                    <div class="fl memcon2_2r"><i class="jxq"></i><span>加息券：0个</span></div>
+					                </div>
+					            </div>
+					        </div>
+				        <!--投资前准备-->
+					        <div class="mem_wrap mt20 clearfix">
+					            <h1>投资前准备</h1>
+					            <div class="border_box clearfix">
+					                <div class="fl div_box1">
+					                    <h1>实名认证</h1>
+					                    <p>您的账号价值连城，实名认证为您降低被盗用的风险。</p>
+					                    {{? it.isPassIdentify == "1"}}
+					                    <a class="btnone">已认证</a>
+					                    {{??}}
+					                    <a class="btnone" href="javascript:;" onclick="manage(this,{{=it.isPassIdentify}},{{=it.isBindCard}},{{=it.isSetTradePwd}});">去认证</a>
+					                    {{?}}
+					                </div>
+					                <div class="fl div_box1">
+					                    <h1>绑定银行卡</h1>
+					                    <p>为了确保资金安全转入到您的银行卡账户，请及时绑定您的银行卡。</p>
+					                    {{? it.isBindCard == "1"}}
+					                    <a class="btnone">已绑定</a>
+					                    {{?? it.isPassIdentify == "1" || it.isBindCard == "0"}}
+					                    <a class="btnone" href="javascript:;" onclick="manage(this,{{=it.isPassIdentify}},{{=it.isBindCard}},{{=it.isSetTradePwd}});">去绑定</a>
+					                    {{?}}
+					                </div>
+					                <div class="fl div_box1 nobor">
+					                    <h1>交易密码</h1>
+					                    <p>交易密码是资金安全的重要防线，请尽早设置。</p>
+					                    {{? it.isSetTradePwd == "1"}}
+					                    <a class="btnone">已设置</a>
+					                    {{?? it.isPassIdentify == "1" || it.isBindCard == "1" || it.isSetTradePwd == "0"}}
+					                    <a class="btnone" href="javascript:;" onclick="manage(this,{{=it.isPassIdentify}},{{=it.isBindCard}},{{=it.isSetTradePwd}});">去设置</a>
+					                    {{?}}
+					                </div>
+					            </div>
+					        </div>
+					        <!--资产统计-->
+					        <div class="mem_wrap mt20 clearfix">
+					            <h1>资产统计</h1>
+					            <div class="border_box clearfix">
+					                <div class="fl div_box2">
+					                    <div class="col2 divtit">收益</div>
+					                    <p class="clear_box">累计收益<div class="clear_icon">
+					                        <div class="hover_box">
+					                            <div class="hover_tit">什么是累计收益</div>
+					                            <div class="hover_con">累计收益是。。</div>
+					                        </div>
+					                    </div></p>
+					                    <p><span class="col2">{{=it.accIncome}}</span>元</p>
+					                </div>
+					                <div class="fl div_box2">
+					                    <div class="col2 divtit"></div>
+					                    <p class="clear_box">待收收益<div class="clear_icon">
+					                        <div class="hover_box">
+					                            <div class="hover_tit">什么是代收收益</div>
+					                            <div class="hover_con">代收收益是。。</div>
+					                        </div>
+					                    </div></p>
+					                    <p><span class="col2">{{=it.intrsCpnIncome}}</span>元</p>
+					                </div>
+					                <div class="fl div_box2">
+					                    <div class="col2 divtit">资产</div>
+					                    <p class="clear_box">持有资产<div class="clear_icon">
+					                        <div class="hover_box">
+					                            <div class="hover_tit">什么是在途资金</div>
+					                            <div class="hover_con">在途资金是。。</div>
+					                        </div>
+					                    </div></p>
+					                    <p><span class="col2">{{=it.frozenFund}}</span>元</p>
+					                </div>
+					                <div class="fl div_box2_1">
+					                    <div class="col2 divtit"></div>
+					                    <p class="clear_box">可用余额<div class="clear_icon">
+					                        <div class="hover_box">
+					                            <div class="hover_tit">什么是可用余额</div>
+					                            <div class="hover_con">可用余额是。。</div>
+					                        </div>
+					                    </div></p>
+					                    <p><span class="col2" id="availBalance">80,000.00</span>元</p>
+					                </div>
+					            </div>
+					        </div>
+			        	</script>
+		        	</div>
+			        <!--最近投资记录-->
+			        <div class="mem_wrap mt20 clearfix">
+			            <h1 class="nobor">最近投资记录<a class="more" href="tradeRecord.html">查看更多>></a></h1>
+			            <div class="border_box clearfix">
+			                <table class="record_wrap">
+			                    <thead class="record_wrap_tit">
+			                        <tr>
+			                            <td>项目资产</td>
+			                            <td>购买数量</td>
+			                            <td>购买金额(元)</td>
+			                            <td>购买时间</td>
+			                            <td>付息方式</td>
+			                        </tr>
+			                    </thead>
+			                    <tbody class="record_wrap_con" id="invest">
+			                    	<script id="investTem" type="text/x-dot-template">
+			                    		{{for(var i in it){}}
+					                        <tr>
+					                            <td>{{=it[i].productId}}</td>
+					                            <td>{{=it[i].purchasePortion}}</td>
+					                            <td>{{=it[i].tradeTalAmt}}</td>
+					                            <td>{{=it[i].updateTime}}</td>
+					                            <td>
+					                            	{{?it[i].repayMode=="1"}}
+				                            			一次还本付息
+					                            	{{??it[i].repayMode=="0"}}
+					                            		等额本息还款
+				                            		{{??it[i].repayMode=="2"}}
+				                            			等额本金
+			                            			{{??it[i].repayMode=="3"}}
+			                            				每月还息到期还本
+		                            				{{?}}
+					                            </td>
+					                        </tr>
+				                      {{?}}
+			                        </script>
+			                        <!--<tr>
+			                            <td>产品编号002</td>
+			                            <td>10000</td>
+			                            <td>1000000</td>
+			                            <td>2016-04-01</td>
+			                            <td>到期反本息</td>
+			                        </tr>
+			                        <tr>
+			                            <td>产品编号003</td>
+			                            <td>10000</td>
+			                            <td>1000000</td>
+			                            <td>2016-04-01</td>
+			                            <td>到期反本息</td>
+			                        </tr>-->
+			                    </tbody>
+			                </table>
+			            </div>
+			        </div>
+			        <!--为您推荐-->
+			        <div class="mem_wrap mt20 clearfix">
+			            <h1>为您推荐</h1>
+			            <div class="border_box clearfix" id="product">
+			                <!--<div class="fl div_box3">
+			                    <h2>产品007</h2>
+			                    <div class="clearfix">
+			                        <div class="fl">
+			                            <p class="col2">7.5%</p>
+			                            <p>年华收益</p>
+			                        </div>
+			                        <div class="fr">
+			                            <p class="col2">180元</p>
+			                            <p>锁定期限</p>
+			                        </div>
+			                    </div>
+			                    <p>产品单价：2000.00元</p>
+			                    <p>剩余块数：240块</p>
+			                    <a class="btnone" href="">查看详情</a>
+			                </div>-->
+			                <!--<div class="fl div_box3">
+			                    <h2>产品008</h2>
+			                    <div class="clearfix">
+			                        <div class="fl">
+			                            <p class="col2">7.5%</p>
+			                            <p>年华收益</p>
+			                        </div>
+			                        <div class="fr">
+			                            <p class="col2">180元</p>
+			                            <p>锁定期限</p>
+			                        </div>
+			                    </div>
+			                    <p>产品单价：2000.00元</p>
+			                    <p>剩余块数：240块</p>
+			                    <a class="btnone" href="">查看详情</a>
+			                </div>-->
+			                <!--<div class="fl div_box3 nobor">
+			                    <h2>产品009</h2>
+			                    <div class="clearfix">
+			                        <div class="fl">
+			                            <p class="col2">7.5%</p>
+			                            <p>年华收益</p>
+			                        </div>
+			                        <div class="fr">
+			                            <p class="col2">180元</p>
+			                            <p>锁定期限</p>
+			                        </div>
+			                    </div>
+			                    <p>产品单价：2000.00元</p>
+			                    <p>剩余块数：240块</p>
+			                    <a class="btnone" href="">查看详情</a>
+			                </div>-->
+			            </div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+	</div>
+	<!--CONTENT_END-->
+    <script type="text/javascript" src="js/footer.js" ></script>
+    <!--提示框-->
+	<div class="alert_box">
+		<div class="alert_cont"></div>
+	</div>
+	<!--有功能按钮-->
+	<div class="motai_box">
+		<div class="motai_cont"></div>
+		<a href="" class="motai_btn">确定</a>
+	</div>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/doT.min.js" ></script>
+<script type="text/javascript">
+	var lastLoginTime = localStorage.getItem("lastLoginTime");
+	$(function(){
+//		获取基本信息
+		Utils.ajax({
+			url:"/restful/custinfo/baseinfo/query",
+			type:"POST",
+			data:{"custId":custId},
+			success:function(response, xml){
+				// 此处放成功后执行的代码
+	            if(response.meta.success){
+	            	if(response.data){
+	            		if(response.data.nickName == "null" || response.data.redEnvelopeNum == null){
+	            			response.data.redEnvelopeNum = 0;
+	            		}
+	            		response.data["lastLoginTime"] = lastLoginTime;
+				    	var innerText = doT.template($("#userInfoTem").text());
+				    	$("#userInfo").html(innerText(response.data));
+				    	$(".clearfix .top-up,.withdraw").live("click",function(e){
+							if(response.data.isPassIdentify == "0"){
+								if(confirm("先去实名认证")){
+									location.href = "realName_identify.html";
+									return;
+								}
+							}else if(response.data.isBindCard == "0"){
+								if(confirm("请去绑卡")){
+									location.href = "bind_BankCard.html";
+									return;
+								}
+							}else if(response.data.isSetTradePwd == "0"){
+								if(confirm("请先设置交易密码")){
+									location.href = "pasManagement.html?pageName=setTradePas";
+									return;
+								}
+							}else{
+					    		if($(this).hasClass("top-up")){
+									location.href = "rechange.html";
+					    		}else{
+					    			location.href = "postalManagement.html";
+					    		}
+							}
+				    	})
+				//		可用余额请求
+						Utils.ajax({
+							url:"/restful/custinfo/balance/query",
+							type:"POST",
+							data:{"custId":custId},
+							success:function(response, xml){
+								// 此处放成功后执行的代码
+					            if(response.meta.success){
+					            	if(response.data){
+					            		localStorage.setItem("availBalance",response.data.usableBalance);
+										$(".memcon2_1_1 .col1").html(response.data.usableBalance);
+										$("#availBalance").html(response.data.usableBalance);
+					            	}else{
+					            		$(".memcon2_1_1 .col1").html(0);
+					            		$("#availBalance").html(0);
+					            		localStorage.setItem("availBalance",0);
+					            	}
+					            }else{
+					            	//会话过期，返回登录页面
+									if(response.meta.message.indexOf("请您先登录")>-1){
+										location.href = "timeOut.html";
+										return;
+									}
+					            	alert(response.meta.message);
+					            }
+							}
+						});
+	            	}
+	            }else{
+	            	//会话过期，返回登录页面
+					if(response.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+	            	alert(response.meta.message);
+	            }
+			}
+		});
+//		投资记录请求
+		Utils.ajax({
+			url:"/restful/tradeorder/custinvhis",
+			type:"POST",
+			data:{"custId":custId},
+			success:function(response, xml){
+				// 此处放成功后执行的代码
+	            if(response.meta.success){
+	            	if(response.data){
+            			if(response.data.serFundQryRsltItemDto){
+					    	var innerText = doT.template($("#investTem").text());
+					    	$("#invest").html(innerText(response.data.serFundQryRsltItemDto));
+            			}else{
+            				$("#invest").html("<tr><td colspan='5'>暂无数据</td></tr>");
+            			}
+	            	}else{
+            			$("#invest").html("<tr><td colspan='5'>暂无数据</td></tr>");
+	            	}
+	            }else{
+	            	//会话过期，返回登录页面
+					if(response.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+	            	alert(response.meta.message);
+	            }
+			}
+		});
+	});
+	//产品列表获取
+	Utils.ajax({
+		url:"/restful/product/query/exhibition",
+		type:"POST",
+		data:{"exhType":"03"},
+		success:function(response, xml){
+			// 此处放成功后执行的代码
+            if(response.meta.success){
+            	if(response.data && response.data.prdExhResItemDtos){
+            		var itemArr = response.data.prdExhResItemDtos;
+            		var strHtml ='';
+            		for(var i = 0;i<itemArr.length;i++){
+            			strHtml += '<div class="fl div_box3">'+
+		                    	'<h2>'+(itemArr[i].productName!="null"?itemArr[i].productName:"无")+'</h2>'+
+			                    '<div class="clearfix">'+
+			                     '<div class="fl"><p class="col2">'+(itemArr[i].expectEarnRate!="null"?itemArr[i].expectEarnRate:"0")+'%</p>'+
+			                     '<p>年华收益</p></div><div class="fr"><p class="col2">'+(itemArr[i].holdPeriod?itemArr[i].holdPeriod:"0")+'天</p>'+
+			                     '<p>锁定期限</p></div></div><p>产品单价：'+(itemArr[i].unitCost!="null"?itemArr[i].unitCost:"0")+'元</p>'+
+			                    '<p>剩余份数：'+(itemArr[i].financeScale!="null"?itemArr[i].financeScale:"0")+'份</p>';
+		                if(itemArr[i].productType == "005"){
+		                    strHtml += '<a class="btnone" href="newProductDetail.html?productId='+itemArr[i].productId+'">查看详情</a></div>';
+		                }else{
+		                	strHtml += '<a class="btnone" href="newFundDetail.html?productId='+itemArr[i].productId+'">查看详情</a></div>';
+		                }
+            		}
+            		$("#product").html(strHtml);
+            	}else{
+            		alert("没有产品推荐");
+            	}
+            }else{
+            	//会话过期，返回登录页面
+				if(response.meta.message.indexOf("请您先登录")>-1){
+					location.href = "timeOut.html";
+					return;
+				}
+            	alert(response.meta.message);
+            }
+		}
+	});
+	
+	
+	//点击进入信息管理页
+	function manage(el,isPassIdentify,isBindCard,isSetTradePwd){
+		var wayText = $(el).text();
+		switch (wayText){
+			case "去认证":
+				localStorage.setItem("pageName","去认证");
+				location.href = "realName_identify.html";
+				break;
+			case "去绑定":
+				if(isPassIdentify == "0"){
+					if(confirm("先去实名认证")){
+						location.href = "realName_identify.html";
+						return;
+					}
+//					localStorage.setItem("pageName","去认证");
+				}else{
+//					localStorage.setItem("pageName","去绑定");
+					location.href = "bind_BankCard.html";
+				}
+				break;
+			default:
+				if(isPassIdentify == "0"){
+					if(confirm("先去实名认证")){
+						location.href = "realName_identify.html";
+						return;
+					}
+				}else if(isPassIdentify == "1" && isBindCard == "0"){
+					if(confirm("先去绑卡")){
+						location.href = "bind_BankCard.html";
+						return;
+					}
+				}else{
+					location.href = "pasManagement.html?pageName=setTradePas";
+				}
+				break;
+		}
+	}
+</script>
+</html>

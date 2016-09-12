@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+	<title>首页</title>
+	<link rel="stylesheet" href="css/common.css" type="text/css"/>
+	<link rel="stylesheet" href="css/home.css" type="text/css"/>
+</head>
+	<body>
+	    <script type="text/javascript" src="js/header.js" ></script>
+	    <div class="banner">
+	    	<ul class="clearfix">
+	    		<li><img src="img/banner01.jpg" /></li>
+	    		<li><img src="img/banner02.jpg"/></li>
+	    		<li><img src="img/banner03.jpg"/></li>
+	    	</ul>
+	    	<div class="ico">
+	    		<a class="active" href="javascript:;"></a>
+	    		<a href="javascript:;"></a>
+	    		<a href="javascript:;"></a>
+	    	</div>
+	        <div class="reg_area">
+	        	<p>新手福利</p>
+	            <strong><i>888</i>元红包大礼品</strong>
+	            <span>投资产品可直减</span>
+	            <a class="reg" href="register.html">免费注册</a>
+	            <b>已有账号，<a href="login.html">立即登录</a></b>
+	        </div>
+	    </div>
+	    <div class="notice">
+	    	<p>*数据截至2016年8月18日</p>
+	    	<div>
+	    		<ul class="clearfix">
+		    		<li>
+		    			<a>419亿</a>
+		    			<a>累计成交额（元）</a>
+		    		</li>
+		    		<li>
+		    			<a>73135万</a>
+		    			<a>已发放收益（元）</a>
+		    		</li>
+		    		<li>
+		    			<a>100%</a>
+		    			<a>迄今产品兑付率</a>
+		    		</li>
+		    		<li>
+		    			<a>87<i>万</i></a>
+		    			<a>用户数（人）</a>
+		    		</li>
+	    		</ul>
+	    	</div>
+	    </div>
+		<div class="product-wrap">
+			<div class="recommend-list">
+				<script type="x-dot-template" id="recommend-list">
+					{{for(var i in it){}}
+						<div class="recommend-list-item">
+							<label></label>
+							<div class="recommend-produce fl">
+								<em>{{=it[i].productName}}</em>
+								<div>
+									<ul class="clearfix">
+										<li>
+											<a>{{=it[i].expectEarnRate}}%</a>
+											<a>年化收益率</a>
+										</li>
+										<li>
+											{{? it[i].productType == "005"}}
+												<a>{{=it[i].holdPeriod}}天</a>
+												<a>产品期限</a>
+											{{??}}
+												<a>{{=it[i].financeScale}}</a>
+												<a>融资规模</a>
+											{{?}}
+										</li>
+										<li>
+											<a id="first-sum">{{=it[i].money}}元</a>
+											<a>起购金额</a>
+										</li>
+										<li>
+											{{? it[i].productType == "005"}}
+												<a class="checkBtn" href='newProductDetail.html?productId={{=it[i].productId}}'>查看详情</a>
+											{{??}}
+												<a class="checkBtn" href='newFundDetail.html?productId={{=it[i].productId}}'>查看详情</a>
+											{{?}}
+										</li>
+									</ul>
+								</div>
+							</div>
+							{{? it[i].productType == "005"}}
+								<img src="img/newGuide.jpg" class="fr" onclick="openNext();"/>
+							{{??}}
+								<img src="img/standard.jpg" class="fr" onclick="openNext();"/>
+							{{?}}
+						</div>
+					{{}}}
+					<!--<div class="recommend-list-item">
+						<label></label>
+						<div class="recommend-produce fl">
+							<em>{{=it[1].productName}}</em>
+							<div>
+								<ul class="clearfix">
+									<li>
+										<a id="second-rate">{{=it[1].expectEarnRate}}%</a>
+										<a>年化收益率</a>
+									</li>
+									<li>
+										<a id="second-date">{{=it[1].financeScale}}</a>
+										<a>融资规模</a>
+									</li>
+									<li>
+										<a id="second-sum">{{=it[1].money}}元</a>
+										<a>起购金额</a>
+									</li>
+									<li>
+										<a class="checkBtn" href='newFundDetail.html?productId={{=it[1].productId}}'>查看详情</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<img src="img/standard.jpg" class="fr" onclick="openNext();"/>
+					</div>-->
+				</script>
+			</div>
+			<p>优选理财</p>
+			<div class="financial-wrap">
+				<script type="x-dot-template" id="showData">
+					{{for(var i in it){}}
+						<div class="financial-item">
+							<dl>
+								<dd><h2>{{=it[i].productName}}</h2></dd>
+								<dd><i>{{=it[i].expectEarnRate}}%</i></dd>
+								<dd>年化收益率</dd>
+								<dd class="br"></dd>
+								<dd>{{=it[i].money}}元起购</dd>
+								<!--<dd>按月申赎</dd>-->
+								<dd>{{=it[i].repayMode}}</dd>
+								<dd>稳固收益</dd>
+								<dd>
+									{{?it[i].productType == "005"}}
+									<a href="newProductDetail.html?productId={{=it[i].productId}}">立即查看</a></dd>
+									{{??}}
+									<a href="newFundDetail.html?productId={{=it[i].productId}}">立即查看</a></dd>
+									{{?}}
+							</dl>
+						</div>
+					{{}}}
+					<!--<div class="financial-item">
+						<dl>
+							<dd><h2>标准理财产品</h2></dd>
+							<dd><i>5.50~8.30%</i></dd>
+							<dd>年化收益率</dd>
+							<dd class="br"></dd>
+							<dd>5万~100万起购</dd>
+							<dd>按月申赎</dd>
+							<dd>按月付息</dd>
+							<dd>稳固收益</dd>
+							<dd><a href="newProductDetail.html">立即查看</a></dd>
+						</dl>
+					</div>
+					<div class="financial-item">
+						<dl>
+							<dd><h2>标准理财产品</h2></dd>
+							<dd><i>5.50~8.30%</i></dd>
+							<dd>年化收益率</dd>
+							<dd class="br"></dd>
+							<dd>5万~100万起购</dd>
+							<dd>按月申赎</dd>
+							<dd>按月付息</dd>
+							<dd>稳固收益</dd>
+							<dd><a href="newProductDetail.html">立即查看</a></dd>
+						</dl>
+					</div>
+					<div class="financial-item">
+						<dl>
+							<dd><h2>标准理财产品</h2></dd>
+							<dd><i>5.50~8.30%</i></dd>
+							<dd>年化收益率</dd>
+							<dd class="br"></dd>
+							<dd>5万~100万起购</dd>
+							<dd>按月申赎</dd>
+							<dd>按月付息</dd>
+							<dd>稳固收益</dd>
+							<dd><a href="newProductDetail.html">立即查看</a></dd>
+						</dl>
+					</div>-->
+				</script>
+			</div>
+			<p>最新资讯</p>
+			<div class="latest-news clearfix">
+				<div class="fl news-img"></div>
+				<div class="fl news-text">
+					<a href="latestNews.html">＂深港通＂或为A股带来千亿增量资金</a><br />
+					<span>深港通在16日盘后迎来了重大进展。李克强总理在8月16日的国务院常务会议上明确表示：“深港通相
+		关准备工作已基本就绪，国务院已批准《深港通实施方案》。”<br />
+		市场对于深港通开闸日期始终关注，上周，港交所频传深港通进展消息，已令深港通概念股连日上涨。
+		16日，深港通概念板块再度上涨2.34％。机构认为，深港通获批的宣布预计将为A股带来750亿－1500
+		亿元增量资金，但整体看影响有限，投资机会方面，建议投资者关注业绩好、市值大的行业龙头股。南
+		方日报记者陈若然。</span>
+				</div>
+			</div>
+			<p>最新公告</p>
+			<div class="latest-notice">
+				<ul class="clearfix">
+					<li>
+						<a href="newNotice.html">【最新公告】优选理财产品发售通知</a>
+					</li>
+					<li>
+						<a href="newNotice.html">【最新公告】优选理财产品发售通知</a>
+					</li>
+					<li>
+						<a href="newNotice.html">【最新公告】优选理财产品发售通知</a>
+					</li>
+				</ul>
+			</div>
+		    <div class="Partner wid">
+		    	<h3>合作伙伴</h3>
+		        <ul>
+		        	<li>
+		            	<a><img src="img/Homeimg0.jpg" /></a>
+		            </li>
+		            <li>
+		            	<a><img src="img/Homeimg1.jpg" /></a>
+		            </li>
+		            <li>
+		            	<a><img src="img/Homeimg2.jpg" /></a>
+		            </li>
+		            <li>
+		            	<a><img src="img/Homeimg3.jpg" /></a>
+		            </li>
+		            <li>
+		            	<a><img src="img/Homeimg4.jpg" /></a>
+		            </li>
+		            <li>
+		            	<a><img src="img/Homeimg5.jpg" /></a>
+		            </li>
+		        </ul>
+		    </div>
+    	</div>
+	    <script type="text/javascript" src="js/footer.js" ></script>
+	    <!--提示框-->
+		<div class="alert_box">
+			<div class="alert_cont"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+	<script type="text/javascript" src="js/doT.min.js"></script>
+	<script type="text/javascript" src="js/tools.js"></script>
+	<script type="text/javascript" src="js/login.js" ></script>
+	<script type="text/javascript">
+		//轮播图 
+		var oUl = $(".banner ul");
+		var imgArr = $(".banner ul li");
+		imgArr.width($(document).width());
+		var oIco = $(".ico a");
+		var baseWidth = imgArr[0].offsetWidth;
+	//	轮播图显示方法       tools.js文件里封装
+		slider.show(oUl,imgArr,oIco,baseWidth);
+		//此功能用来实现,登录之后页面的头部变化   注：登录、注册、忘记密码、注册协议页面不能调用
+		if(custId){
+			$(".reg").html("会员中心");
+			$(".reg").attr("href","myAsset.html");
+			$(".reg_area b").addClass("none");
+		}
+		$(function(){
+			Utils.ajax({
+				url:"/restful/product/query/exhibition",
+				type:"post",
+				data:{"exhType":"01"},
+				success:function(data,xml){
+					if(data.meta.success){
+						if(data.data &&　data.data.prdExhResItemDtos && data.data.prdExhResItemDtos.length>0){
+							data = data.data.prdExhResItemDtos;
+							for(var i = 0;i<data.length;i++){
+								var money = data[i].investMin * data[i].unitCost;
+								data[i].money = money; 	
+								data[i].financeScale = changeNum(parseFloat(data[i].financeScale));
+							}
+							var telText = doT.template($("#recommend-list").html());
+							$(".recommend-list").html(telText(data));
+						}else{
+							console.log("暂无产品");
+						}
+					}else{
+						//会话过期，返回登录页面
+						if(data.meta.message.indexOf("请您先登录")>-1){
+							location.href = "timeOut.html";
+							return;
+						}
+						alert(data.meta.message);
+						//alerts(data.meta.message);
+					}
+				}
+			});
+			Utils.ajax({
+				url:"/restful/product/query/exhibition",
+				type:"post",
+				data:{"exhType":"04"},
+				success:function(data,xml){
+					if(data.meta.success){
+						if(data.data &&　data.data.prdExhResItemDtos && data.data.prdExhResItemDtos.length>0){
+							data = data.data.prdExhResItemDtos;
+							for(var i = 0;i<data.length;i++){
+								var money = data[i].investMin * data[i].unitCost;
+								data[i].money = money;
+								switch(data[i].repayMode){
+									case "0":
+										data[i].repayMode = "等额本息还款";
+										break;
+									case "1":
+										data[i].repayMode = "一次还本付息";
+										break;
+									case "2":
+										data[i].repayMode = "等额本金";
+										break;
+									case "3":
+										data[i].repayMode = "每月还息到期还本";
+										break;
+									case "4":
+										data[i].repayMode = "每月还息到期还本(天)";
+										break;
+								}
+							}
+							var telText = doT.template($("#showData").html());
+							$(".financial-wrap").html(telText(data));
+						}else{
+							console.log("暂无产品");
+						}
+					}else{
+						//会话过期，返回登录页面
+						if(data.meta.message.indexOf("请您先登录")>-1){
+							location.href = "timeOut.html";
+							return;
+						}
+						alert(data.meta.message);
+						//alerts(data.meta.message);
+					}
+				}
+			})
+		})
+		//打开新手指引
+		function openNext(){
+			location.href = "newBie.html";
+		}
+	</script>
+</html>

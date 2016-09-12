@@ -1,0 +1,12 @@
+/*分页start*/
+.pagination{margin-top: 20px;color: #666;}
+.pagination ul li{border: 1px solid #ddd;padding: 4px;margin: 0 9px;}
+.pagination ul li a{letter-spacing: -1px;}
+.pagination ul li a:hover{color: #26a2ee;}
+.pagination ul li.pagin_active a{color: #f68714;}
+/*分页end*/
+.pagination>a{letter-spacing: -1px;padding: 4px;float: left;border: 1px solid #ddd;margin: 0 9px;}
+.pagination>a:last-child{border: 0;}
+.pagination span{padding: 4px;letter-spacing: 1px;}
+.pagination>a:hover{color: #26a2ee;}
+/*.pagination>a:last-child:hover{color: #666;}*/

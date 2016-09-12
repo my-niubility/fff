@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<title>短信确认</title>
+		<link rel="stylesheet" href="css/common.css" type="text/css"/>
+		<link rel="stylesheet" href="css/page.css" type="text/css"/>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/header.js" ></script>
+	<!--内容区域start-->    
+		<div class="bodybg content_padd15">
+			<div class="w1000 clearfix SMS_form">
+				<div>
+					<div class="SMS_input">
+						<a>短信验证码：</a>
+						<input type="text" name="SMSCode" />
+					</div>
+					<div class="clearfix">
+						<span title="返回上一页重新获取验证码" class="btn" onclick="prevStep();">上一步</span>
+						<span title="提交信息" class="btn fr" onclick="getStorageItem();">确认</span>
+					</div>
+				</div>
+				<p>如果您1分钟内没有收到短信验证码，请重新获取验证码</p>
+			</div>
+		</div>
+	<!--内容区域end-->
+	    <script type="text/javascript" src="js/footer.js" ></script>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+	<script type="text/javascript" src="js/common.js" ></script>
+	<script type="text/javascript" src="js/tools.js" ></script>
+	<script type="text/javascript">
+		var data,dataJson;
+		//点击上一步
+		function prevStep(){
+			location.href = document.referrer; 
+//			location.reload();
+		}
+		//点击提交
+		function getStorageItem(){
+			var SMSValue = $("input[name='SMSCode']").val();
+			if(!SMSValue){alert("请填写短信验证码");return;}
+			if(localStorage.getItem("pageName").indexOf("充值")>-1){
+				data = JSON.parse(localStorage.getItem("rechageData"));
+				if(data){
+					data.msgIdenCode = SMSValue;
+					Utils.ajax({
+						url:"/restful/accrecharge/submit",
+						type:"post",
+						data:data,
+						success: function (response, xml) {
+				            // 此处放成功后执行的代码
+				            if(response.meta.success){
+				            	if(response.data){
+									var custId = response.data.custId;  //平台唯一编号
+									localStorage.setItem("custId",custId);
+				            		location.href = "findFinish.html";
+				            	}else{
+				            		alert("没有信息");
+				            	}
+				            }else{
+				            	//会话过期，返回登录页面
+								if(response.meta.message.indexOf("请您先登录")>-1){
+									location.href = "timeOut.html";
+									return;
+								}
+				            	alert(response.meta.message);
+				            }
+				        }
+					});
+				}else{
+					location.href = "timeOut.html";
+				}
+			}else if(localStorage.getItem("pageName").indexOf("提现")>-1){
+				data = JSON.parse(localStorage.getItem("postalData"));
+				if(data){
+					data.msgIdenCode = SMSValue;
+					Utils.ajax({
+						url:"/restful/accwithdraw/submit",
+						type:"post",
+						data:data,
+						success: function (response, xml) {
+				            // 此处放成功后执行的代码
+				            if(response.meta.success){
+				            	if(response.data){
+									var custId = response.data.custId;  //平台唯一编号
+									localStorage.setItem("custId",custId);
+				            		location.href = "findFinish.html";
+				            	}else{
+				            		alert("没有信息");
+				            	}
+				            }else{
+				            	//会话过期，返回登录页面
+								if(response.meta.message.indexOf("请您先登录")>-1){
+									location.href = "timeOut.html";
+									return;
+								}
+				            	alert(response.meta.message);
+				            }
+				        }
+					});
+				}else{
+					location.href = "timeOut.html";
+				}
+			}else if(localStorage.getItem("pageName").indexOf("balance")>-1){  //余额支付
+				data = JSON.parse(localStorage.getItem("payData"));
+				if(data){
+					data.msgIdenCode = SMSValue;
+					Utils.ajax({
+						url:"/restful/order/payment/balance",
+						type:"POST",
+						data:data,//{"token":data.token,"tradeOrderId":certBusCase,"custId":custId,"tradeOrderId":orderInfo.orderId},
+						success: function (response, xml) {
+			            	// 此处放成功后执行的代码
+				            if(response.meta.success){
+								location.href = "findFinish.html";
+				            }else{
+				            	//会话过期，返回登录页面
+								if(response.meta.message.indexOf("请您先登录")>-1){
+									location.href = "timeOut.html";
+									return;
+								}
+								if(response.meta.message.indexOf("POC015")>-1){
+									alert("订单支付超时");
+									location.href = "tradeRecord.html";
+									return;
+								}
+				            	alert(response.meta.message);
+				            }
+				        }
+					});
+				}else{
+					location.href = "timeOut.html";
+				}
+			}else if(localStorage.getItem("pageName").indexOf("quick")>-1){  //快捷支付
+				data = JSON.parse(localStorage.getItem("payData"));
+				if(data){
+					data.msgIdenCode = SMSValue;
+					Utils.ajax({
+						url:"/restful/order/payment/quick",
+						type:"POST",
+						data:data,//{"phoneNum":localStorage.getItem("loginName"),"certBusCase":certBusCase,"custId":custId,"tradeOrderId":orderInfo.orderId},
+						success: function (response, xml) {
+			            	// 此处放成功后执行的代码
+				            if(response.meta.success){
+								location.href = "findFinish.html";
+				            }else{
+				            	//会话过期，返回登录页面
+								if(response.meta.message.indexOf("请您先登录")>-1){
+									location.href = "timeOut.html";
+									return;
+								}
+				            	alert(response.meta.message);
+				            }
+				        }
+					});
+				}else{
+					location.href = "timeOut.html";
+				}
+			} else if(localStorage.getItem("pageName").indexOf("去认证")>-1){   //实名认证
+				var nickname,ownName,IDNum,backName,cardNum,telNum;//昵称，持卡人，身份证号，银行，卡号，手机号
+				data = JSON.parse(localStorage.getItem("data"));
+				if(data){
+					var dataJson = {
+						"custId":custId,
+						"custAccType":"01",
+						"cardName":data['ownName'],
+						"credentialsType":"P01",
+						"identityCardNumber":data['IDNum'],
+						"bankType":data['backName'],
+						"cardNo":data['cardNum'],
+						"phoneNum":data['telNum'],
+						"msgIdenCode":SMSValue,
+						"nickname":data['nickname'],
+						"regChanCode":"001"
+					};
+					Utils.ajax({
+						url: "/restful/certifi/submit",     //请求地址 1:为实名认证，2：为绑定银行卡
+				        type: "POST",                       			   //请求方式
+				        data: dataJson,       				   //请求参数
+				        success: function (response, xml) {
+				            // 此处放成功后执行的代码
+				            if(response.meta.success){
+				            	if(response.data){
+				            		localStorage.setItem("nickName",data['nickname']);
+				            		location.href = "myAsset.html";
+				            	}else{
+				            		alert("没有信息")
+				            	}
+				            }else{
+				            	//会话过期，返回登录页面
+								if(response.meta.message.indexOf("请您先登录")>-1){
+									location.href = "timeOut.html";
+									return;
+								}
+				            	alert(response.meta.message);
+				            }
+				        }
+					});
+				}else{
+					location.href = "timeOut.html";
+				}
+			}else if(localStorage.getItem("pageName").indexOf("去绑定")>-1){  //绑定银行卡
+				var ownName,IDNum,backName,cardNum,telNum;//持卡人，身份证号，银行，卡号，手机号
+				data = JSON.parse(localStorage.getItem("data"));
+				if(data){
+					var dataJson = {
+						"custId":custId,
+						"custAccType":"01",
+						"cardName":data['ownName'],
+						"credentialsType":"P01",
+						"identityCardNumber":data['IDNum'],
+						"bankType":data['backName'],
+						"cardNo":data['cardNum'],
+						"phoneNum":data['telNum'],
+						"msgIdenCode":SMSValue
+					};
+					Utils.ajax({
+						url: "/restful/bindcard/bcapply",     //请求地址 为绑定银行卡
+				        type: "POST",                       			   //请求方式
+				        data: dataJson,       				   //请求参数
+				        success: function (response, xml) {
+				            // 此处放成功后执行的代码
+				            if(response.meta.success){
+				            	if(response.data){
+//									var accountId = response.data.accountId;  //账号
+//				            		var certSerialNum = response.data.certSerialNum;  //认证流水号
+//				            		var respTime = response.data.respTime; //应答时间
+//				            		localStorage.setItem("accountId",accountId);
+//				            		localStorage.setItem("certSerialNum",certSerialNum);
+				            		location.href = "myAsset.html";
+				            	}else{
+				            		alert("没有信息");
+				            	}
+				            }else{
+				            	//会话过期，返回登录页面
+								if(response.meta.message.indexOf("请您先登录")>-1){
+									location.href = "timeOut.html";
+									return;
+								}
+				            	alert(response.meta.message);
+				            }
+				        }
+					});
+				}else{
+					location.href = "timeOut.html";
+				}
+			}
+		}
+	</script>
+</html>

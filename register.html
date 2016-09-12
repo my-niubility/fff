@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>证联金融-免费注册</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+   <!--内容区start--> 
+    <div class="main_content">
+        <div class="w1000 clearfix">
+        	<!--面包屑-->
+        	<div class="crumb"><a href="index.html">首页 </a> >  <a class="col1">注册</a></div>
+        	<div class="form">
+        		<div class="form_header">个人注册</div>
+	        	<div class="form_list">
+	        		<div class="form_one">
+	        			<p class="form_title">
+		        			<img src="img/freeregisterxing.png" />
+		        			<span>手机号 :</span>
+	        			</p>
+        				<input onblur="checkPhone(this.value,this)"  value="" type="text" maxlength="11" name="telephoneNumber" placeholder="手机号将作为您的登录名" />
+	        		</div>
+	        		<div class="form_one">
+	        			<p class="form_title">
+		        			<img src="img/freeregisterxing.png" />
+		        			<span>登录密码 :</span>
+	        			</p>
+        				<input onblur="checkPas(this.value,this)" onkeyup="checkPas(this.value,this)" type="password" name="password" placeholder="请输入登录密码" />
+        				<div class="password_intension">
+        					<a class="password_show"></a>
+	        				<a class="password_show"></a>
+	        				<a class="password_show"></a>
+	        				<i class="low_font">弱</i>
+	        				<i class="low_mind">中</i>
+	        				<i class="low_max">强</i>
+        				</div>
+	        		</div>
+	        		<div class="form_one">
+	    				<p class="form_title">
+		        			<img src="img/freeregisterxing.png" />
+		        			<span>确认密码 :</span>
+	        			</p>
+	        			<input onblur="checkPasCon(this.value,this)" type="password" name="passwordConfirm" placeholder="请再次输入登录密码" />
+	        		</div>
+	        		<div class="form_one">
+	        			<p class="form_title">
+		        			<img src="img/freeregisterxing.png" />
+		        			<span>手机验证码 :</span>
+	        			</p>
+	        			<div class="getCode">
+		        			<input type="text" name="code" placeholder="请输入短信验证码" />
+		        			<a data-lock="false" onclick="getCode(this)" class="getCode_btn btn">获取验证码</a>
+	        			</div>
+	        		</div>
+	        		<div class="form_one">
+	        			<p class="form_title">
+	        				<span>邀请人编码 :</span>
+	    				</p>
+	        			<input type="text" maxlength="11" name="visit_code" placeholder="邀请人的编码或手机号" />
+	        		</div>
+	        		<div class="form_one">
+	        			<span class="checkBox btn">
+	        				<a class="right_img"></a>
+	        			</span>
+	        			<i>&nbsp;&nbsp;我已阅读&nbsp;，&nbsp;并同意<a href="register_protocol.html" class="agreement">《证联金融网站协议》</a></i>
+	        		</div>
+	        		<a class="submitBtn btn">提交</a>
+	        	</div>
+	        	<div class="comment">
+	        		<div class="account">
+	        			<a class="hasAccount">已有账号&nbsp;&nbsp;</a>
+	        			<a href="login.html" class="landOn">立即登录</a>
+	        		</div>
+	        		<div class="kindly_reminder">
+	        			<p>温馨提示</p>
+	        			<p>1、为了您的资金安全，请及时绑定银行卡</p>
+	        			<p>2、身份证、银行卡是证联金融账户的唯一信息，其它账户不可重复使用</p>
+	        		</div>
+	        	</div>
+        	</div>
+        </div>
+    </div>
+    <!--内容区end-->
+    <script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="js/tools.js"></script>
+<script type="text/ecmascript" src="js/md5.js"></script>
+<script type="text/javascript">
+	var isRegFlag = false;//未注册过
+//校验手机号是否注册过
+	function checkPhone(telNum,el){
+		if(!isPhoneNum(telNum)){
+			$(el).val("");
+			alert("手机号不正确，请重新输入");
+			return;
+		}
+		Utils.ajax({
+	        url: "/restful/user/registe/check",              //请求地址
+	        type: "POST",                       			   //请求方式
+	        data: {"checkType":"1","loginName":telNum},         				   //请求参数
+	        success: function (response, xml) {
+	            // 此处放成功后执行的代码
+	            if(response.meta.success){
+	            	if(response.data){
+		            	var isReg = response.data.isRegisted;
+		            	if(parseInt(isReg)){
+		            		isRegFlag = true;//已注册
+		            		alert("手机号已注册,可直接登录");
+		            		location.href = "login.html";
+		            		return;
+		            	}
+	            	}
+	            }else{
+	            	alert(response.meta.message);
+	            }
+	        }
+	    });
+	}
+//	检验确认密码
+	function checkPasCon(pass,el){
+		if(pass != $("input[name='password']").val()){
+			$(el).val("");
+			alert("两次密码不一样，请重新输入密码");
+		}
+	}
+	function getCode(el){
+		if(isRegFlag){alert("手机号已注册,可直接登录");location.href="login.html";return;}
+		var telNum = $("input[name='telephoneNumber']").val();
+		if(!isPhoneNum(telNum)){
+			alert("手机号不正确，请重新输入");
+			return;
+		}
+		if($(el).data("lock")){
+			return;
+		}
+		$(el).data("lock",true);
+    	countDownReg(el);
+//		发送验证码
+	 	Utils.ajax({
+	        url: "/restful/idencode/sendMsgCode",              //请求地址
+	        type: "POST",                       			   //请求方式
+	        data: {"phoneNum":telNum,"certBusCase":"01"},         				   //请求参数
+	        success: function (response, xml) {
+	            // 此处放成功后执行的代码
+	            if(response.meta.success){
+//	            	alert("获取验证码成功");
+	            }else{
+	            	alert(response.meta.message)
+	            }
+	        }
+	    });
+   	}
+	
+	$(".submitBtn").bind("click",function(){
+		var telNum = $("input[name='telephoneNumber']").val();
+		if(!isPhoneNum(telNum)){
+			alert("手机号不正确，请重新输入");
+			return;
+		}
+		if(!telNum){
+			alert("手机号不能为空");
+			return;
+		}
+		var pass = $("input[name='password']").val();
+		if(!pass){
+			alert("密码不能为空");
+			return;
+		}else if(pass.length < 6){
+			alert("密码太短");
+			return;
+		}
+		var conPass = $("input[name='passwordConfirm']").val();
+		if(pass != conPass){
+			alert("两个密码不一样");
+			return;
+		}
+		var code = $("input[name='code']").val();
+		if(!code){
+			alert("验证码不能为空");
+			return;
+		}
+		if($(".right_img").css("display") == "none"){
+			alert("请先阅读协议内容");
+			return;
+		}
+//		校验手机号是否已注册
+		Utils.ajax({
+	        url: "/restful/user/registe/check",              //请求地址
+	        type: "POST",                       			   //请求方式
+	        data: {"checkType":"1","loginName":telNum},         				   //请求参数
+	        success: function (response, xml) {
+	            // 此处放成功后执行的代码
+	            if(response.meta.success){
+	            	if(response.data){
+		            	var isReg = response.data.isRegisted;
+		            	if(parseInt(isReg)){
+		            		alert("已注册,可直接登录");
+		            		return;
+		            	}
+	            	}
+	            }else{
+	            	alert(response.meta.message);
+	            }
+	        }
+	    });
+//		提交
+		Utils.ajax({
+	        url: "/restful/user/registe/apply",              //请求地址
+	        type: "POST",                       			   //请求方式
+	        data: {"loginName":telNum,"password":hex_md5(conPass),"mobile":telNum,"custType":"CP","msgIdenCode":code,"regChanCode":"001"},         				   //请求参数
+	        success: function (response, xml) {
+	            // 此处放成功后执行的代码
+	            if(response.meta.success){
+	            	if(response.data){
+		            	alert("注册成功");
+		            	var custId = response.data.custId;
+		            	sessionStorage.setItem("custId",custId);
+		            	location.href = "login.html";
+	            	}
+	            }else{
+	            	alert(response.meta.message);
+	            }
+	        }
+	    });
+	})
+	$(".checkBox").toggle(function(){
+		$(this).children("a").hide();
+	},function(){
+		$(this).children("a").show();
+	});
+</script>
+</html>

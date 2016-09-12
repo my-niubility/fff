@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>密码管理</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+    <!--内容区域start-->  
+  	<div class="bodybg">
+    	<div class="w1000 clearfix">
+	    	<!--面包屑-->
+	    	<div class="crumb"><a href="index.html">首页 </a> > <a href="myAsset.html">会员中心 </a> > <a href="identityManagement.html">安全管理</a> > <a class="col1">密码管理</a></div>
+			<!--侧导航BEGIN-->
+	        <div class="nav_left fl">
+	            <div class="nav_box clearfix">
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon1"></i>资产管理</a>
+	                   <ul class="nav_ul1 clearfix none">
+	                       <li><a href="myAsset.html">我的资产</a></li>
+	                       <!--<li><a href="myRedpac.html">我的红包</a></li>
+	                       <li><a href="myLottery.html">我的奖券</a></li>-->
+	                   </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon2"></i>交易管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="tradeRecord.html">交易记录</a></li>
+	                       <li><a href="rechargeRecord.html">充值记录</a></li>
+	                       <li><a href="cashRecord.html">提现记录</a></li>
+	                       <li><a href="capitalFlow.html">资金流水</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon3"></i>安全管理</a>
+	                    <ul class="nav_ul1 clearfix">
+	                    	<li><a href="identityManagement.html">认证管理</a></li>
+	                       	<li><a class="active" href="pasManagement.html">密码管理</a></li>
+	                       	<li><a href="cardManagement.html">银行卡管理</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon4"></i>信息管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="baseInfo.html">基本信息</a></li>
+	                       <li><a href="messageCenter.html">消息中心</a></li>
+	                    </ul>
+	               </div>
+	           </div>   
+	        </div>
+	        <!--侧导航END-->
+	        <!--右侧信息start-->
+        	<div class="bgcol baseInfo_rg fl">
+        		<div class="baseInfo_borb">
+        			<div class="baseInfo_title" style="width: 110px;">设置密码</div>
+        		</div>
+        		<div class="pasMan">
+	        		<div class="pasMan_form">
+	        			<p><i></i>您好，为了保障您的资金安全，请设置交易密码</p>
+	        			<div class="none">
+		        			<a>原交易密码：</a>
+	        				<input type="password" name="oldPassw" />
+	        			</div>
+	        			<div>
+		        			<a>新交易密码：</a>
+	        				<input type="password" name="newPassw"/>
+	        			</div>
+	        			<div>
+		        			<a>确认交易密码：</a>
+	        				<input type="password" name="confimPassw"/>
+	        			</div>
+	        			<div class="btn">确认</div>
+	        		</div>
+	        		<div class="pasMan_form revisePassw">
+	        			<p>修改交易密码</p>
+	        			<div>
+		        			<a>原交易密码：</a>
+	        				<input type="password" name="oldRevisePassw" />
+	        			</div>
+	        			<div>
+		        			<a>新交易密码：</a>
+	        				<input type="password" name="newRevisePassw"/>
+	        			</div>
+	        			<div>
+		        			<a>确认交易密码：</a>
+	        				<input type="password" name="confimRevisePassw"/>
+	        			</div>
+	        			<div class="btn">确认</div>
+	        		</div>
+	        		<div class="pasMan_form none">
+	        			<p>登录密码</p>
+	        			<div>
+		        			<a>原登录密码：</a>
+	        				<input type="password" name="oldloginPassw" />
+	        			</div>
+	        			<div>
+		        			<a>新登录密码：</a>
+	        				<input type="password" name="newloginPassw"/>
+	        			</div>
+	        			<div>
+		        			<a>确认登录密码：</a>
+	        				<input type="password" name="confimloginPassw"/>
+	        			</div>
+	        			<div class="btn">确认</div>
+	        		</div>
+        		</div>
+        	</div>
+	        <!--右侧信息end-->
+    	</div>
+	</div>
+	<!--内容区域END-->
+    <script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/md5.js" ></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/tools.js"></script><!--自定义封装函数-->
+<script type="text/javascript">
+	$(".pasMan .pasMan_form").addClass("none");
+	var url = location.href;
+	var pageName = url.substr(url.indexOf("=")+1,url.length-1);
+	var userName;
+	$(function(){
+		if(pageName.indexOf("reviseLogPas")>-1 || url.indexOf("=")<0){
+			localStorage.setItem("pageName","修改登录密码");
+			$(".baseInfo_title").html("修改登录密码");
+			$(".pasMan .pasMan_form:last-child").removeClass("none");
+			$(".pasMan_form .btn").live("click",function(){
+				var oldPassw = $("input[name='oldloginPassw']").val();
+				if(!oldPassw){alert("请填写原密码");return;}
+				var newPassw = $("input[name='newloginPassw']").val();
+				if(!newPassw){alert("请填写新密码");return;}
+				var confimPassw = $("input[name='confimloginPassw']").val();
+				if(!confimPassw){alert("请填写确认密码");return;}
+				if(newPassw != confimPassw){alert("两次密码填写不一样");return;}
+				// 修改登录密码
+				Utils.ajax({
+					url:"/restful/pwdm/setloginpwd",
+					type:"POST",
+					data:{"custId":custId,"setType":"2","orgLoginPwd":hex_md5(oldPassw),"newLoginPwd":hex_md5(newPassw),"msgIdenCode":"","phoneNum":localStorage.getItem("loginName")},
+					success: function (response, xml) {
+		            	// 此处放成功后执行的代码
+			            if(response.meta.success){
+			            	location.href = "findFinish.html";
+			            }else{
+			            	//会话过期，返回登录页面
+							if(response.meta.message.indexOf("请您先登录")>-1){
+								location.href = "timeOut.html";
+								return;
+							}
+			            	alert(response.meta.message);
+			            }
+			        }
+				});
+			})
+		}else if(pageName.indexOf("setTradePas")>-1){
+			localStorage.setItem("pageName","设置交易密码");
+			$(".baseInfo_title").html("设置交易密码");
+			$(".pasMan .pasMan_form:first-child").removeClass("none");
+			Utils.ajax({
+				url:"/restful/custinfo/baseinfo/query",
+				type:"post",
+				data:{"custId":custId},
+				success:function(data,xml){
+					userName = (data.data.nickname?data.data.nickname:data.data.userName);
+					$(".pasMan_form p i").html(userName+",");
+				}
+			});
+			$(".pasMan_form div:last-child").live("click",function(){
+				var newPassw = $("input[name='newPassw']").val();
+				var confimPassw = $("input[name='confimPassw']").val();
+				if(!newPassw){alert("请输入密码");return;}
+				if(!confimPassw){alert("请输入确认密码");return;}
+				if(newPassw != confimPassw){alert("两次输入不一样");return;}
+				//  设置交易密码
+				Utils.ajax({
+					url:"/restful/pwdm/setpaypwd",
+					type:"POST",
+					data:{"custId":custId,"setType":"1","orgPayPwd":"","newPayPwd":hex_md5(newPassw),"msgIdenCode":"","phoneNum":localStorage.getItem("loginName")},
+					success: function (response, xml) {
+		            	// 此处放成功后执行的代码
+			            if(response.meta.success){
+			            	location.href = "findFinish.html";
+			            }else{
+			            	//会话过期，返回登录页面
+							if(response.meta.message.indexOf("请您先登录")>-1){
+								location.href = "timeOut.html";
+								return;
+							}
+			            	alert(response.meta.message);
+			            }
+			        }
+				});
+			})
+		}else if(pageName.indexOf("reviseTradePas")>-1){
+			localStorage.setItem("pageName","修改交易密码");
+			$(".baseInfo_title").html("修改交易密码");
+			$(".pasMan .revisePassw").removeClass("none");
+			$(".revisePassw .btn").live("click",function(){
+				var oldPassw = $("input[name='oldRevisePassw']").val();
+				var newPassw = $("input[name='newRevisePassw']").val();
+				var confimPassw = $("input[name='confimRevisePassw']").val();
+				if(!oldPassw){alert("请输入密码");return;}
+				if(!newPassw){alert("请输入密码");return;}
+				if(!confimPassw){alert("请输入确认密码");return;}
+				if(newPassw != confimPassw){alert("两次输入不一样");return;}
+				//  修改交易密码
+				Utils.ajax({
+					url:"/restful/pwdm/setpaypwd",
+					type:"POST",
+					data:{"custId":custId,"setType":"2","orgPayPwd":hex_md5(oldPassw),"newPayPwd":hex_md5(newPassw),"msgIdenCode":"","phoneNum":localStorage.getItem("loginName")},
+					success: function (response, xml) {
+		            	// 此处放成功后执行的代码
+			            if(response.meta.success){
+			            	location.href = "findFinish.html";
+			            }else{
+			            	//会话过期，返回登录页面
+							if(response.meta.message.indexOf("请您先登录")>-1){
+								location.href = "timeOut.html";
+								return;
+							}
+			            	alert(response.meta.message);
+			            }
+			        }
+				});
+			})
+		}
+	});
+</script>
+</html>

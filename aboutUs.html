@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>关于我们</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+	<!--内容区域start-->
+    <div class="bodybg">
+    	<div class="w1000 clearfix">
+	    	<!--面包屑-->
+	    	<div class="crumb"><a href="index.html">首页 </a> > <a class="col1">关于我们</a></div>
+			<!--侧导航BEGIN-->
+			<div class="aboutUs_cont clearfix fl">
+		        <ul class="clearfix">
+		        	<li class="aboutAct clearfix"><a href="">公司介绍</a><a>></a></li>
+		        	<li class="clearfix"><a href="">集团介绍</a><a>></a></li>
+		        	<li class="clearfix"><a href="">选择理由</a><a>></a></li>
+		        	<li class="clearfix"><a href="">企业资质</a><a>></a></li>
+		        	<li class="clearfix"><a href="">公司荣誉</a><a>></a></li>
+		        	<li class="clearfix"><a href="">公司产品</a><a>></a></li>
+		        	<li class="clearfix"><a href="">联系我们</a><a>></a></li>
+		        </ul>
+			</div>
+	        <!--侧导航END-->
+	        <!--右侧信息start-->
+	        <div class="aboutUs_right fr">
+	        	<div class="aboutUs_title">公司介绍</div>
+	        	<p>
+	        		北京证联资本管理有限责任公司（简称“证联金融”）成立于2015年3月，注册资本壹亿
+					元人民币，为证联支付有限公司的子公司。证联金融凭借对金融支付业务，特别是互联网
+					金融的深刻理解，紧密围绕金融机构、投资机构及投资人的核心服务为需求，致力于为客
+					户和合作伙伴提供安全、灵活、便捷的产品和综合解决方案，打造金融产业链的一站式服
+					务平台。致力于中国互联网金融业，定位服务与专注于互联网金融基础设施服务、专业的
+					金融产品交易平台、互联网金融信息服务的公司。
+	        	</p>
+	        </div>
+	        <!--右侧信息end-->
+        </div>
+    </div>
+    <script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script src="js/tools.js"></script>
+<script type="text/javascript" src="js/login.js" ></script>
+<script type="text/javascript">
+	$(function(){
+		$(".menu_list ul li").removeClass("acti");
+		$(".menu_list ul li:last-child").addClass("acti");
+	});
+	$(".aboutUs_cont ul li").live("click",function(){
+		$(".aboutUs_cont ul li").removeClass("aboutAct");
+		$(this).addClass("aboutAct");
+	})
+</script>
+</html>

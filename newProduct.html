@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>优选理财</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" />
+<link rel="stylesheet" href="css/pagination.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js"></script>
+    <div class="banner">
+    	<ul class="clearfix">
+    		<li><img src="img/banner01.jpg" /></li>
+    		<li><img src="img/banner02.jpg"/></li>
+    		<li><img src="img/banner03.jpg"/></li>
+    	</ul>
+    	<div class="ico">
+    		<a class="active" href="javascript:;"></a>
+    		<a href="javascript:;"></a>
+    		<a href="javascript:;"></a>
+    	</div>
+    </div>
+	<!--内容区域start-->
+    <div class="bodybg">
+    	<div class="w1000 clearfix">
+	    	<!--面包屑-->
+			<div class="crumb"></div>
+    		<div class="product-wrap">
+    			<ul class="clearfix">
+    				<li>
+    					<label>产品单价:</label>
+    					<a class="active" data-unitCostMin="" data-unitCostMax="">全部</a>
+    					<a data-unitCostMin="0" data-unitCostMax="500">500元以下</a>
+    					<a data-unitCostMin="501" data-unitCostMax="1000">501-1000元</a>
+    					<a data-unitCostMin="1001" data-unitCostMax="2000">1001-2000元</a>
+    					<a data-unitCostMin="2001" data-unitCostMax="">2001以上</a>
+    				</li>
+    				<li>
+    					<label>年化收益:</label>
+    					<a class="active" data-expectEarnRateMin="" data-expectEarnRateMax="">全部</a>
+    					<a data-expectEarnRateMin="0" data-expectEarnRateMax="8.00">8.00%以下</a>
+    					<a data-expectEarnRateMin="8.01" data-expectEarnRateMax="10.00">8.01%-10.00%</a>
+    					<a data-expectEarnRateMin="10.01" data-expectEarnRateMax="">10.01%以上</a>
+    				</li>
+    				<li>
+    					<label>锁定期限:</label>
+    					<a class="active" data-lockPeriodMin="" data-lockPeriodMax="">全部</a>
+    					<a data-lockPeriodMin="0" data-lockPeriodMax="90">90天以下</a>
+    					<a data-lockPeriodMin="91" data-lockPeriodMax="180">91-180天</a>
+    					<a data-lockPeriodMin="181" data-lockPeriodMax="360">181-360天</a>
+    					<a data-lockPeriodMin="361" data-lockPeriodMax="1080">361-1080天</a>        
+    					<a data-lockPeriodMin="1081" data-lockPeriodMax="">1081天以上</a>
+    				</li>
+    			</ul>
+    		</div>
+    		<div class="newProduct">
+    			<p class="">
+    				<label>排序：</label>
+    				<!--checked表示降序-->
+    				<a class="active" data-orderColumn = "1">最新<input type="radio" class="none" checked hidden="hidden" /> </a>
+    				<a data-orderColumn = "2">按年化率<input type="radio" checked class="none" hidden/></a>
+    				<a data-orderColumn = "3">产品单价<input type="radio" checked class="none" hidden/></a>
+    				<a data-orderColumn = "4">锁定期<input type="radio" checked class="none"  hidden/></a>
+    			</p>
+    			<dl>
+    				<!--<dd>
+    					<div class="clearfix">
+    						<label>优选理财</label>
+    						<a>标准理财产品</a>
+    						<a class="fr" href="newProductDetail.html">查看详情></a>
+    					</div>
+    					<div class="finacial-produce">
+    						<div>
+	    						<a><i>10.20%</i></a>
+	    						<a>年化收益</a>
+    						</div>
+    						<div>
+	    						<a>1年</a>
+	    						<a>锁定期</a>
+    						</div>
+							<div>
+	    						<a>1000元</a>
+	    						<a>起购金额</a>
+    						</div>
+    						<div>
+	    						<a>每月15日，按月返租</a>
+	    						<a>锁定期</a>
+    						</div>
+    						<div>
+	    						<a class="fr" href="newProductDetail.html">立即购买</a>
+    						</div>
+    					</div>
+    					<b></b>
+    					<div class="expect-day">
+    						<a>预计起息日：<i>2016-08-08</i></a>
+    					</div>
+    				</dd>-->
+    			</dl>
+    		</div>
+    		<!--分页-->
+			<div class="fr pagination clearfix">
+				<input type="hidden" data-nowPage="1" />
+				<span class="fl nobor">共<i>256</i>条记录</span>
+				<a class="none" href="javascript:prePage();" title="上一页"><<</a>
+				<ul class="clearfix fl">
+					<li class="pagin_active"><a href="">1</a></li>
+					<li><a href="">2</a></li>
+					<li><a href="">3</a></li>
+					<li><a href="">4</a></li>
+					<li><a href="">5</a></li>
+				</ul>
+				<a class="none" href="javascript:nextPage();" title="下一页">>></a>
+				<a href="javascript:lastPage();" title="最后一页"></a>
+			</div>
+    	</div>
+	</div>
+	<!--CONTENT_END-->
+    <script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js" ></script>
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/login.js" ></script>
+<script type="text/javascript" src="js/getData.js"></script>
+
+<script type="text/javascript">
+	var productType="005",expectEarnRateMin=expectEarnRateMax=lockPeriodMin=lockPeriodMax=unitCostMin=unitCostMax="",orderFlag="0",orderColumn="1";
+	//请求地址 httpUrlCount：查询总条数，httpUrlQuery：查询对应条件的数据
+	var httpUrlCount = "/restful/product/query/count";
+	var httpUrlQuery = "/restful/product/query/multicond";
+	//轮播图 
+	var oUl = $(".banner ul");
+	var imgArr = $(".banner ul li");
+	imgArr.width($(document).width());
+	var oIco = $(".ico a");
+	var baseWidth = imgArr[0].offsetWidth;
+//	轮播图显示方法       tools.js文件里封装
+	slider.show(oUl,imgArr,oIco,baseWidth);
+	
+	$(function(){
+		$(".menu_list ul li").removeClass("acti");
+		$(".menu_list ul li:nth-child(2)").addClass("acti");
+	});
+//		获取数据     在productData.js
+	queryTotalNum(productType,unitCostMin,unitCostMax,expectEarnRateMin,expectEarnRateMax,lockPeriodMin,lockPeriodMax,orderFlag,orderColumn);
+//		得到数据渲染页面
+	function appendHtml(data){
+		if(data.prdExhResItemDtos && data.prdExhResItemDtos.length>0){
+			var strHtml = '';
+			var productList = data.prdExhResItemDtos
+			for(var i=0;i<productList.length;i++){
+				var money = productList[i].investMin * productList[i].unitCost;
+				var repayMode;
+				switch (productList[i].repayMode){
+					case "0":
+						repayMode = "等额本息还款";
+						break;
+					case "1":
+						repayMode = "一次还本付息";
+						break;
+					case "2":
+						repayMode = "等额本金";
+						break;
+					case "3":
+						repayMode = "每月还息到期还本";
+						break;
+					case "4":
+						repayMode = "每月还息到期还本(天)";
+						break;
+				}
+				strHtml += '<dd><div class="clearfix"><label>优选理财</label>'+
+							'<a>'+productList[i].productName+'</a><a class="fr" href="newProductDetail.html?productId='+productList[i].productId+'">查看详情&gt;</a>'+
+	    					'</div><div class="finacial-produce"><div>'+
+							'<a><i>'+productList[i].expectEarnRate+'%</i></a><a>年化收益</a></div><div>'+
+							'<a>'+productList[i].holdPeriod+'天</a><a>锁定期</a></div><div>'+
+							'<a>'+productList[i].unitCost+'元</a><a>产品单价</a></div><div>'+
+							'<a>'+repayMode+'</a><a>返租方式</a></div><div>';
+				switch (productList[i].productStatus){
+					case "03":
+						strHtml +=	'<a class="fr" href="newProductDetail.html?productId='+productList[i].productId+'">立即购买</a></div></div>'+
+		    					'</dd>';//<b></b><div class="expect-day"><a>预计起息日：<i>'+strFormat(productList[i].establishDate)+'</i></a></div>
+						break;
+					case "04":
+						strHtml +=	'<a class="fr" style="background:#ccc;">已售罄</a></div></div>'+
+		    					'</dd>';//<b></b><div class="expect-day"><a>预计起息日：<i>'+strFormat(productList[i].establishDate)+'</i></a></div>
+						break;
+					case "05":
+						strHtml +=	'<a class="fr" style="background:#ccc;">还款中</a></div></div>'+
+		    					'</dd>';//<b></b><div class="expect-day"><a>预计起息日：<i>'+strFormat(productList[i].establishDate)+'</i></a></div>
+						break;
+					case "09":
+						strHtml +=	'<a class="fr" style="background:#ccc;">已售罄</a></div></div>'+
+		    					'</dd>';//<b></b><div class="expect-day"><a>预计起息日：<i>'+strFormat(productList[i].establishDate)+'</i></a></div>
+						break;
+					default:
+						strHtml +=	'<a class="fr" href="newProductDetail.html?productId='+productList[i].productId+'">立即购买</a></div></div>'+
+		    					'</dd>';//<b></b><div class="expect-day"><a>预计起息日：<i>'+strFormat(productList[i].establishDate)+'</i></a></div>
+						break;
+						
+				}
+			}
+			$(".newProduct dl").html(strHtml);
+		}else{
+			$(".newProduct dl").html("<dd style='text-align:center;color:#666'>暂无数据</dd>");
+			$(".pagination").addClass("none");
+		}
+	}
+</script>
+</html>

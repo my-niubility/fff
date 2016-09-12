@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>常见问题</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+    <!--内容区域start-->
+    <div class="bodybg">
+    	<div class="w1000 clearfix content_padd15">
+	    	<!--面包屑-->
+	    	<!--<div class="crumb"><a href="index.html">首页 </a> > <a class="col1">关于我们</a></div>-->
+			<!--侧导航BEGIN-->
+			<div class="aboutUs_cont clearfix fl">
+		        <ul class="clearfix">
+		        	<li class="aboutAct clearfix"><a href="">新手引导</a><a>></a></li>
+		        	<li class="clearfix"><a href="">安全保障</a><a>></a></li>
+		        	<li class="clearfix"><a href="">租赁收益</a><a>></a></li>
+		        	<li class="clearfix"><a href="">关于红包</a><a>></a></li>
+		        	<li class="clearfix"><a href="">交易中心</a><a>></a></li>
+		        	<li class="clearfix"><a href="">其他问题</a><a>></a></li>
+		        	<li class="clearfix"><a href="">联系我们</a><a>></a></li>
+		        </ul>
+			</div>
+	        <!--侧导航END-->
+	        <!--右侧信息start-->
+	        <div class="problem fr">
+	        	<div class="commenPro">
+		        	<i class="fl helpImg"></i>
+	        		<a>常见问题</a>
+	        	</div>
+	        	<div class="commenPro">
+		        	<i class="fl"></i>
+	        		<a class="font_666">新人如何注册登录?</a>
+	        	</div>
+        		<ul class="clearfix none">
+	        		<li>
+	        			<p>1、点击页面右上角【注册】，进入注册页面。</p>
+	        			<p>2、填写用户名、密码、验证码等信息，并勾选“我已阅读并同意《美桔用户注册协议》”，点击【立即注册】完成注册，请在注册时务必填写详细个人信息。</p>
+	        		</li>
+        		</ul>
+        		<div class="commenPro">
+		        	<i class="fl"></i>
+	        		<a class="font_666">会员登录忘记密码怎么办?</a>
+	        	</div>
+	        	<ul class="clearfix none">
+	        		<li>
+	        			<p>1、点击页面右上角【注册】，进入注册页面。</p>
+	        			<p>2、填写用户名、密码、验证码等信息，并勾选“我已阅读并同意《美桔用户注册协议》”，点击【立即注册】完成注册，请在注册时务必填写详细个人信息。</p>
+	        		</li>
+        		</ul>
+        		<div class="commenPro">
+		        	<i class="fl"></i>
+	        		<a class="font_666">会员账户安全吗?</a>
+	        	</div>
+        		<ul class="clearfix none nobor">
+	        		<li>
+	        			<p>1、点击页面右上角【注册】，进入注册页面。</p>
+	        			<p>2、填写用户名、密码、验证码等信息，并勾选“我已阅读并同意《美桔用户注册协议》”，点击【立即注册】完成注册，请在注册时务必填写详细个人信息。</p>
+	        		</li>
+	        	</ul>
+	        </div>
+	        <!--右侧信息end-->
+        </div>
+    </div>
+	<script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/login.js" ></script>
+<script type="text/javascript">
+	$(".aboutUs_cont ul li").live("click",function(){
+		$(".aboutUs_cont ul li").removeClass("aboutAct");
+		$(this).addClass("aboutAct");
+	})
+	$(".commenPro").live("click",function(){
+		if($(this).next().hasClass("none")){
+			$(this).next().removeClass("none");
+			$(this).find("i").css("transform","rotate(180deg)");
+		}else{
+			if($(this).next().hasClass("clearfix")){
+				$(this).next().addClass("none");
+				$(this).find("i").css("transform","rotate(360deg)");
+			}
+		}
+	})
+</script>
+</html>

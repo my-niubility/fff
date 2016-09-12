@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//Dli XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dli/xhtml1-transitional.dli">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+<title>提现</title>
+<link rel="stylesheet" href="css/common.css" type="text/css"/>
+<link rel="stylesheet" href="css/page.css" type="text/css"/>
+</head>
+<body>
+	<script type="text/javascript" src="js/header.js" ></script>
+    <!--内容区域start-->
+    <div class="bodybg">
+    	<div class="w1000 clearfix">
+	    	<!--面包屑-->
+	    	<div class="crumb"><a href="index.html">首页 </a> > <a href="#">会员中心 </a> > <a href="#">安全管理</a> > <a class="col1">银行卡管理</a></div>
+			<!--侧导航BEGIN-->
+	        <div class="nav_left fl">
+	            <div class="nav_box clearfix">
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon1"></i>资产管理</a>
+	                   <ul class="nav_ul1 clearfix none">
+	                       <li><a href="myAsset.html">我的资产</a></li>
+	                       <!--<li><a href="myRedpac.html">我的红包</a></li>
+	                       <li><a href="myLottery.html">我的奖券</a></li>-->
+	                   </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon2"></i>交易管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="tradeRecord.html">交易记录</a></li>
+	                       <li><a href="rechargeRecord.html">充值记录</a></li>
+	                       <li><a href="cashRecord.html">提现记录</a></li>
+	                       <li><a href="capitalFlow.html">资金流水</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon3"></i>安全管理</a>
+	                    <ul class="nav_ul1 clearfix">
+	                       <li><a class="active" href="identityManagement.html">认证管理</a></li>
+	                       <li><a href="pasManagement.html">密码管理</a></li>
+	                       <li><a href="cardManagement.html">银行卡管理</a></li>
+	                    </ul>
+	               </div>
+	               <div class="nav_list"><a href="javascript:;"><i class="nav_icon4"></i>信息管理</a>
+	                    <ul class="nav_ul1 clearfix none">
+	                       <li><a href="baseInfo.html">基本信息</a></li>
+	                       <li><a href="messageCenter.html">消息中心</a></li>
+	                    </ul>
+	               </div>
+	           </div>   
+	        </div>
+	        <!--侧导航END-->
+	        <!--右侧信息start-->
+	        <div class="bgcol baseInfo_rg fl">
+        		<div class="baseInfo_borb">
+        			<div class="baseInfo_title">提现</div>
+        		</div>
+        		<div class="message_form">
+	    			<table cellspacing="0" border="0" cellpadding="0" class="card_center">
+    					<script id="postalTemp" type="x-dot-template">
+		    				<thead>
+		    					<tr>
+			    					<th>持卡人</th>
+			    					<th>发卡行</th>
+			    					<th>卡号</th>
+			    					<th>预留手机号</th>
+			    					<th>创建时间</th>
+			    					<th class="nobor">属性</th>
+		    					</tr>
+		    				</thead>
+		    				<tbody>
+	    						<tr>
+			    					<td>{{=it.cardName}}</td>
+			    					<td>{{=it.bankType}}</td>
+			    					<td>{{=it.cardNo}}</td>
+			    					<td>{{=it.telephone}}</td>
+			    					<td>{{=it.createDate}}</td>
+			    					<td>
+			    						{{? it.cardType == "1"}}借记卡{{??}}贷记卡{{?}}
+			    					</td>
+		    					</tr>
+	    					</tbody>
+    					</script>
+	    			</table>
+    			</div>
+    			<div class="poatalManage clearfix">
+    				<p>可用金额:<i>1.00</i>元</p>
+    				<div><a>提现金额:</a><input type="text" name="postalMoney" onblur="checkMoney(this.value,this);" placeholder="提现金额" /></div>
+    				<div><a>交易密码:</a><input type="password" name="tradePassw" placeholder="交易密码" value=""/></div>
+    				<div class="btn">提交</div>
+    			</div>
+    			<div class="rechange_tips">
+					<div class="nobor">
+						<p>温馨提示：</p>
+						<p>1.银行卡绑定成功后，才可进行提现操作；</p>
+						<p>2.每次提现费用2元为第三方支付或银行收取（单次提现1000元以上免手续费）；</p>
+						<p>3.预计到账时间遇双休法定节假日顺延，实际到账时间依据账户托管方（第三方支付平台）及提现银行而有所差异；</p>
+						<p>4.提现后次日算起3个工作日内到账（双休日和法定节假日除外），若2个工作日内未到账，请咨询400-616-1515资金到账情况；</p>
+						<p>5.提现银行卡须为借记卡，不支持存折、信用卡提现。 </p>
+					</div>
+				</div>
+        	</div>
+	        <!--右侧信息end-->
+        </div>
+    </div>
+    <script type="text/javascript" src="js/footer.js" ></script>
+</body>
+<script type="text/javascript" src="js/jquery-1.4.4.min.js"></script><!--jQuery 库-->
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript" src="js/common.js" ></script>
+<script type="text/javascript" src="js/doT.min.js" ></script>
+<script type="text/javascript" src="js/md5.js" ></script>
+<script type="text/javascript">
+	var telNum = localStorage.getItem("loginName");//登录名为手机号
+	var balance = localStorage.getItem("availBalance");//可用余额
+	$(function(){
+		$(".poatalManage i").text(balance);
+	})
+	function checkMoney(money,el){
+		if(money <= 0){alert("提现金额大于零");$(el).val("");return;}
+		var isMon = /^\d*?\.?\d*?$/
+		if(!isMon.test(money)){
+			alert("金额为数字,请重新输入");
+			$(el).val("");
+			return;
+		}
+	}
+//	查询默认绑卡信息
+	Utils.ajax({
+		url: "/restful/querycard/default",     //请求地址 
+        type: "POST",                       			   //请求方式
+        data: {"custId":custId},       				   //请求参数
+        success: function (response, xml) {
+            // 此处放成功后执行的代码
+            if(response.meta.success){
+            	if(response.data){
+            		var cardNo = response.data.cardNo;  //卡号
+            		if(cardNo.length>10){
+						response.data["cardNo"] = cardNo.replace(cardNo.substr(6,cardNo.length-10),"******");
+					}
+            		var bankType = response.data.bankType; //发卡行
+            		for(var k in backJson){
+						for(var m in backJson[k]){
+							if(bankType == m){
+								response.data["bankType"] = backJson[k][m];
+							}
+						}
+					}
+            		var cardType = response.data.cardType; //银行卡类型
+            		var telephone = telNum.replace(telNum.substr(3,5),"***");
+            		response.data["telephone"] = telephone;
+					var tempText = doT.template($("#postalTemp").html());
+					$(".card_center").html(tempText(response.data));
+            	}else{
+            		$(".card_center tbody").html("<tr><td>暂无数据</td></tr>");
+            	}
+            }else{
+            	//会话过期，返回登录页面
+				if(response.meta.message.indexOf("请您先登录")>-1){
+					location.href = "timeOut.html";
+					return;
+				}
+            	alert(response.meta.message);
+            }
+        }
+	});
+	//点击提交
+	$(".poatalManage .btn").live("click",function(){
+		var postalMoney = $("input[name='postalMoney']").val();//提现金额
+		if(!postalMoney){alert("请填写金额");return;}
+		if(postalMoney == 0){alert("提现金额大于零");return;}
+		if(parseFloat(postalMoney)> parseFloat(balance)){alert("提现超出余额");return;}		
+		var tradePassw = $("input[name='tradePassw']").val();//交易密码
+		if(!tradePassw){alert("请输入交易密码");return;}
+		localStorage.setItem("pageName","提现");
+		var data = {
+			"custId":custId,
+			"payPassword":hex_md5(tradePassw),
+			"withdrawAmt":postalMoney,
+			"withdrawType":"01",
+			"channelCode":"001"
+		};
+		localStorage.setItem("postalData",JSON.stringify(data));
+//		发送验证码
+		Utils.ajax({
+			url: "/restful/idencode/sendMsgCode",     //请求地址 
+	        type: "POST",                       			   //请求方式
+	        data: {"phoneNum":telNum,"certBusCase":"05","custId":custId},       				   //请求参数
+	        success: function (response, xml) {
+	            // 此处放成功后执行的代码
+	            if(response.meta.success){
+					location.href = "SMSconfirm.html";
+	            }else{
+	            	//会话过期，返回登录页面
+					if(response.meta.message.indexOf("请您先登录")>-1){
+						location.href = "timeOut.html";
+						return;
+					}
+	            	alert(response.meta.message);
+	            }
+	        }
+		});
+	});
+</script>
+</html>
